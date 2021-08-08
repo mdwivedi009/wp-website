@@ -1,0 +1,150 @@
+<div class="main-container">
+    <mat-toolbar color="primary" class="topbar telative">
+        <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/">
+                <b>
+                    <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                    <img src="assets/images/brand-logo.png" alt="homepage" class="light-logo" style="height: 50px" />
+                </b>
+                <span fxShow="false" fxShow.gt-xs>
+                    <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                    <span>Writing Prompts</span>
+                </span>
+            </a>
+        </div>
+        <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span fxFlex></span>
+        <app-header></app-header>
+    </mat-toolbar>
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+        <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'"
+            fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches"
+            style="background-color: #ffffff">
+            <app-sidebar></app-sidebar>
+        </mat-sidenav>
+        <mat-sidenav-content class="page-wrapper">
+            <div class="page-content">
+                <span>Comments</span><br><br>
+                <div class="card" style="border-radius:20px; padding:1%;">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-lg-7 col-sm-7 col-md-7 col-xs-7">
+                              <img src="assets/images/img4.jpg" alt="" class="float-left" width="50px" height="50px" style="border-radius:50%; margin-left:13px;"> &nbsp;&nbsp;
+                            
+                              <p style="font-size:12px; margin-top:-10px; margin-left:80px;">Be-you-tiful-Writer</p>
+                            </div>
+                              <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                              <p class="float-right">8 Aug-2020</p>
+                            </div>
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-lg-11 offset-lg-1 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-xs-10 col-xs-offset-2">
+                              <p>So sweet</p>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                              <p style="color:#3f51b5;margin-left:9px;">Reply</p>
+                            </div>
+                            <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                              <p>See replies(1)</p>
+                            </div>
+                          </div>
+                        </div>
+                       </div>
+                       <br>
+                    <div class="card" style="border-radius:20px; padding:1%;">
+                        <div class="body">
+                            <div class="row">
+                                <div class="col-lg-7 col-sm-7 col-md-7 col-xs-7">
+                                  <img src="assets/images/img4.jpg" alt="" class="float-left" width="50px" height="50px" style="border-radius:50%; margin-left:13px;"> &nbsp;&nbsp;
+                                
+                                  <p style="font-size:12px; margin-top:-10px; margin-left:80px;">Be-you-tiful-Writer</p>
+                                </div>
+                                  <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                                  <p class="float-right">8 Aug-2020</p>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="row">
+                                <div class="col-lg-11 offset-lg-1 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-xs-10 col-xs-offset-2">
+                                  <p>That was so lovely</p>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                                  <p style="color:#3f51b5;margin-left:9px;">Reply</p>
+                                </div>
+                                <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                  <p>See replies(1)</p>
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="card" style="border-radius:20px; padding:1%;">
+                            <div class="body">
+                                <div class="row">
+                                    <div class="col-lg-7 col-sm-7 col-md-7 col-xs-7">
+                                      <img src="assets/images/img4.jpg" alt="" class="float-left" width="50px" height="50px" style="border-radius:50%; margin-left:13px;"> &nbsp;&nbsp;
+                                    
+                                      <p style="font-size:12px; margin-top:-10px; margin-left:80px;">Be-you-tiful-Writer</p>
+                                    </div>
+                                      <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                                      <p class="float-right">10 Aug-2020</p>
+                                    </div>
+                                  </div>
+                                  <br>
+                                  <div class="row">
+                                    <div class="col-lg-11 offset-lg-1 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-xs-10 col-xs-offset-2">
+                                      <p>so nice</p>
+                                    </div>
+                                  </div>
+                                  <div class="row">
+                                    <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                                      <p style="color:#3f51b5;margin-left:9px;">Reply</p>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                      <p>See replies(1)</p>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="card" style="border-radius:20px; padding:1%;">
+                                <div class="body">
+                                    <div class="row">
+                                        <div class="col-lg-7 col-sm-7 col-md-7 col-xs-7">
+                                          <img src="assets/images/img4.jpg" alt="" class="float-left" width="50px" height="50px" style="border-radius:50%; margin-left:13px;"> &nbsp;&nbsp;
+                                        
+                                          <p style="font-size:12px; margin-top:-10px; margin-left:80px;">Be-you-tiful-Writer</p>
+                                        </div>
+                                          <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                                          <p class="float-right">15 Aug-2020</p>
+                                        </div>
+                                      </div>
+                                      <br>
+                                      <div class="row">
+                                        <div class="col-lg-11 offset-lg-1 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-xs-10 col-xs-offset-2">
+                                          <p>Awww</p>
+                                        </div>
+                                      </div>
+                                      <div class="row">
+                                        <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                                          <p style="color:#3f51b5;margin-left:9px;">Reply</p>
+                                        </div>
+                                        <div class="col-lg-3 col-sm-3 col-md-3 col-xs-3">
+                                          <p>See replies(1)</p>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                
+                </div>
+            
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

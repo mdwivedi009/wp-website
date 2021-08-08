@@ -1,0 +1,443 @@
+<div class="main-container">
+  <mat-toolbar color="primary" class="topbar telative">
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/">
+        <b>
+          <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+          <img src="assets/images/brand-logo.png" alt="homepage" class="light-logo" style="height: 50px" />
+        </b>
+        <span fxShow="false" fxShow.gt-xs>
+          <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+          <span>Writing Prompts</span>
+        </span>
+      </a>
+    </div>
+    <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span fxFlex></span>
+    <app-header></app-header>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+    <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'"
+      fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches"
+      style="background-color: #ffffff">
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+    <mat-sidenav-content class="page-wrapper">
+      <div class="page-content">
+        <div class="container">
+          <br />
+          <div class="card text-white" id="cardtext" style="width: 80%" *ngIf="userDetails">
+              <div class="card-body">
+                <button type="button" class="btn btn-primary float-right" id="edit" *ngIf="authDetails && authDetails.email == userDetails.userEmail">
+                  <img src="/assets/images/edit.png" height="20px" />
+                  Edit
+                </button>
+                <button type="button" class="btn btn-primary float-right" id="editmobile" *ngIf="authDetails && authDetails.email == userDetails.userEmail">
+                  <img src="/assets/images/edit.png" height="20px" />
+                  Edit
+                </button>
+                <img *ngIf="userDetails" src={{userDetails.userImageURL}} class="float-left" height="80px" width="80px"
+                  alt="Profile Image" id="profile-image" />
+                <img *ngIf="userDetails" src="{{userDetails.userImageURL}}" class="float-left" height="80px"
+                  width="80px" alt="Profile Image" id="profile-imagemobile" />
+                <div class="row" *ngIf="userDetails">
+                  <h5 id="auth-name" style="margin-left: 3%; font-size:18px;">{{userDetails.userName}}</h5>
+                  <h5 id="auth-namemobile">{{userDetails.userName}}</h5>
+                </div>
+                <div class="row">
+                  <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                    <p (click)="openFollowList(contentTwo,'followers')" id="Followers" style="text-align: center;margin-left:-18px; cursor: pointer;" *ngIf="userDetails">
+                      {{followers}}<br />
+                      Followers
+                    </p>
+                  </div>
+                  <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
+                    <p (click)="openFollowList(contentTwo,'following')" id="Following" style="text-align: center;margin-left:-55px; cursor: pointer;">
+                      {{following}}<br />
+                      Following
+                    </p>
+                  </div>
+                  <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                    <button *ngIf="this.authDetails && this.authDetails.UUID!==this.userDetails.userID" id="follow-button" class="btn btn-muted" style="border-radius: 10px; width: 95px;background-color: white;color: #3f51b5; font-weight: 500;margin-top: 10px; height: 35px; padding: 0px;" (click)="userFollowUnfollow()">
+                      <span style="font-weight: bold; font-size: 22px;">{{this.authDetails && this.authDetails.userSet && this.authDetails.userSet.following && this.authDetails.userSet.following.hasOwnProperty(this.UserId) ? "" : "+"}}</span> 
+                      {{this.authDetails && this.authDetails.userSet && this.authDetails.userSet.following && this.authDetails.userSet.following.hasOwnProperty(this.UserId) ? "Following" : "Follow"}}
+                    </button>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-2 col-md-12 col-sm-12 col-xs 12">
+                    <p (click)="openFollowList(contentTwo,'followers')" id="Followersmobile" style="text-align: center; cursor: pointer;">
+                      {{followers}}<br />
+                      Followers
+                    </p>
+                  </div>
+                  <div class="col-lg-2 col-md-12 col-sm-12 col-xs 12">
+                    <p (click)="openFollowList(contentTwo,'following')" id="Followingmobile" style="text-align: center; cursor: pointer;">
+                      {{following}}<br />
+                      Following
+                    </p>
+                  </div>
+                  <div class="col-lg-2 col-md-12 col-sm-12 col-xs 12">
+                    <button *ngIf="this.authDetails && this.authDetails.UUID!==this.userDetails.userID" id="follow-button-mobile" class="btn btn-muted" style="border-radius: 10px; width: 95px;background-color: white !important;color: #3f51b5; font-weight: 500;margin-top: 10px; height: 35px; padding: 0px;" (click)="userFollowUnfollow()">
+                      <span style="font-weight: bold; font-size: 22px;">+</span> Follow
+                    </button>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-right: 20px; margin: 1%">
+              <button (click)="clicked('prompts')" type="button"
+                class="btn btn-outline-primary {{buttonType == 'prompts' ? 'active' : ''}}">
+                Prompts
+              </button>
+              <button (click)="clicked('stories')" type="button"
+                class="btn btn-outline-primary {{buttonType == 'stories' ? 'active' : ''}}">
+                Stories
+              </button>
+              <button (click)="clicked('bookmarks')" type="button"
+                class="btn btn-outline-primary {{buttonType == 'bookmarks' ? 'active' : ''}}">
+                Bookmarks
+              </button>
+              <button (click)="clicked('likes')" type="button"
+                class="btn btn-outline-primary {{buttonType == 'likes' ? 'active' : ''}}">
+                Likes
+              </button>
+            </div>
+          </div>
+
+          <!-- modal to display genres start here -->
+          <ng-template #content let-modal>
+            <div class="modal-body">
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+              <div class="row" style="display:flex">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                <button type="button" class="btn btn-outline-primary" *ngFor="let genre of promptGenres">
+               {{genre}}
+              </button>
+            </div>
+              </div>
+            </div>
+          </ng-template>
+          <!-- modal to display genres end here -->
+          
+          <!-- modal to display followers and following start here -->
+          <ng-template #contentTwo let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title" style="text-transform: capitalize;">
+                {{this.usersType}} </h4>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row" style="padding-left: 20px !important;" *ngFor="let user of followList" >
+                <div *ngIf="user.userName" style="display:flex;">
+                  <a routerLink="/user-profile" [queryParams]="{ id: followListIds[followList.indexOf(user)] }" target="_blank">
+                <img *ngIf="user.userImageURL" src={{user.userImageURL}} class="float-left" height="50px" width="50px"
+                  alt="Profile Image" id="follow-image" /></a>
+                  <a routerLink="/user-profile" [queryParams]="{ id: followListIds[followList.indexOf(user)] }" target="_blank">
+                  <p style="margin-top: 15px !important; margin-left:15px !important; color: black !important; text-transform: capitalize; ">{{user.userName}}</a>
+              </div>
+            </div>
+            </div>
+          </ng-template>
+          <!-- modal to display followers and following end here -->
+          
+          <!-- prompt card start here -->
+          <div *ngIf="buttonType == 'prompts'">
+            <div class="card" style="background-color: #bdc5f8; margin-bottom: 20px !important" *ngFor="let prompt of promptList">
+              <div class="card innerCard" style="padding: 20px;">
+                <div class="row no-gutters">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display: flexbox;">
+                    <p style="color: #3f51b5; font-size: 12px; float: left;"> {{ -1 * prompt.time.time | date: "dd MMM yyyy" }} </p>
+                    <img [src]="this.authDetails && this.authDetails.userSet.bookmarks && this.authDetails.userSet.bookmarks.hasOwnProperty(prompt.promptID) ? 'assets/images/bookmarked.png' : 'assets/images/btn_save.png' " class="rounded float-right" alt="Bookmark prompt" (click)="bookmarkPrompt(prompt)" />
+                  </div>
+                </div>
+                <div class="row no-gutters">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card-body">
+                      <p class="text-justify"> {{ prompt.userPrompt }} </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row no-gutters">
+                  <div style="width: 25%;">
+                    <img [src]="prompt.likes && this.authDetails && prompt.likes.hasOwnProperty(this.authDetails.UUID) ? 'assets/images/liked.png' : 'assets/images/icn_favorite.png' " style="cursor: pointer;" class="rounded float-left"  alt="..." height="40px" width="35px" (click)="promptLikeDislike(prompt)" />
+                    <p style="margin: 5px 0px 0px 37px; color: #3f51b5;">{{prompt.likesCount ? prompt.likesCount : 0}} </p>
+                  </div>
+                  <div style="width: 50%; text-align: center;">
+                    <a routerLink="/write-story" [queryParams]="{ id: prompt.promptID }" style="text-align: center; color: #3f51b5 !important;">Write Story</a>
+                  </div>
+                  <div style="width: 25%;">
+                    <img src="assets/images/share.png" id="share" class="rounded float-right" alt="..." style="padding: 3%; margin-right: 0%; margin-top: -3%" />
+                  </div>
+                </div>
+              </div>
+              <div class="row no-gutters" style="padding: 5px;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                  <a style="color: black !important; text-transform: capitalize; cursor: pointer;" data-toggle="modal" (click)="open(content,prompt.genre)" >Genres</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- prompt card end here -->
+
+          <!-- Stories card start here -->
+          <div *ngIf="buttonType == 'stories'">
+            <div class="card" style="background-color: #bdc5f8; margin-bottom: 25px;" *ngFor="let story of storiesList">
+              <p style="margin:15px;">{{story.promptSet !== undefined ? story.promptSet.userPrompt : ""}}</p>
+              <div class="card innerCard">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <img src="{{story.userImageURL}}" alt="" height="60px" width="60px" style="border-radius: 50%; margin-top:20px;" />
+                  &nbsp;
+                  <span style="color: #3f51b5; font-weight: bold;">{{story.userName}}</span>
+                  &nbsp;
+                  <p style="margin-left:74px; margin-top:-32px; color: #3f51b5; font-size: 14px">
+                    {{-1 * story.time.time | date: "dd MMM yyyy"}}
+                  </p>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card-body">
+                      <p class="text-justify"> {{story.stSnip}} </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                    <img *ngIf="!(story.likes && this.authDetails && story.likes.hasOwnProperty(this.authDetails.UUID))" src="assets/images/icn_favorite.png" class="rounded float-left" alt="..."
+                      style="margin-left:19px; height:40px; width: 35px;" (click)="storyLikeDislike(story)" (click)="storyLikeDislike(story)" />
+                      <img *ngIf="(story.likes && this.authDetails && story.likes.hasOwnProperty(this.authDetails.UUID))" src="assets/images/liked.png" class="rounded float-left" alt="..."
+                      style="margin-left:19px; height:40px; width:35px;" (click)="storyLikeDislike(story)" (click)="storyLikeDislike(story)" />
+                    <p style="margin-top: 6px; margin-left:56px; color: #3f51b5;">{{story.likesCount}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center; margin:1%">
+                  <a routerLink="/read-story" [queryParams]="{ storyID: story.stID }" style="color:#3f51b5 !important; text-transform: capitalize;">Read
+                    Complete Story></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Stories card end here -->
+
+          <!-- bookmarks card start here -->
+          <div *ngIf="buttonType == 'bookmarks'">
+            <div class="card" style="background-color: #bdc5f8; margin-bottom: 20px !important" *ngFor="let prompt of bookmarksList">
+              <div class="card innerCard" style="padding: 20px;">
+                <div class="row no-gutters">
+                  <div style="width: 80%;">
+                    <div style="display: flex;">
+                      <a routerLink="/user-profile" [queryParams]="{ id: prompt.userID }" target="_blank" style="display: flex;">
+                      <img src="{{ prompt.userImageURL }}" alt="{{ prompt.userName }}" height="60px" width="60px" style="border-radius: 50%;" /></a>
+                      <a routerLink="/user-profile" [queryParams]="{ id: prompt.userID }" target="_blank" style="display: flex;">
+                      <p style="color: #3f51b5; font-size: 14px;font-weight: bold; padding: 5px;">
+                        &nbsp;
+                        <span>{{ prompt.userName }}</span>
+                        <br/>
+                        &nbsp;
+                        <span style="font-weight: 400;">{{ -1 * prompt.time.time | date: "dd MMM yyyy" }}</span>
+                       </p>
+                    </a>
+                    </div>
+                  </div>
+                  <div style="width: 20%;">
+                    <img [src]="this.authDetails && this.authDetails.userSet.bookmarks && this.authDetails.userSet.bookmarks.hasOwnProperty(prompt.promptID) ? 'assets/images/bookmarked.png' : 'assets/images/btn_save.png' " class="rounded float-right" alt="Bookmark prompt" (click)="bookmarkPrompt(prompt)" />
+                  </div>
+                </div>
+                <div class="row no-gutters">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card-body">
+                      <p class="text-justify"> {{ prompt.userPrompt }} </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row no-gutters">
+                  <div style="width: 25%;">
+                    <img [src]="prompt.likes && this.authDetails && prompt.likes.hasOwnProperty(this.authDetails.UUID) ? 'assets/images/liked.png' : 'assets/images/icn_favorite.png' " style="cursor: pointer;" class="rounded float-left"  alt="..." height="40px" width="35px" (click)="promptLikeDislike(prompt)" />
+                    <p style="margin: 5px 0px 0px 37px; color: #3f51b5;">{{prompt.likesCount ? prompt.likesCount : 0}} </p>
+                  </div>
+                  <div style="width: 50%; text-align: center;">
+                    <a routerLink="/write-story" [queryParams]="{ id: prompt.promptID }" style="text-align: center; color: #3f51b5 !important;">Write Story</a>
+                  </div>
+                  <div style="width: 25%;">
+                    <img src="assets/images/share.png" id="share" class="rounded float-right" alt="..." style="padding: 3%; margin-right: 0%; margin-top: -3%" />
+                  </div>
+                </div>
+              </div>
+              <div class="row no-gutters" style="padding: 5px;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                  <a style="color: black !important; text-transform: capitalize; cursor: pointer;" data-toggle="modal" (click)="open(content,prompt.genre)" >Genres</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- bookmarks card end here -->
+
+
+          <!-- likes card start here -->
+          <div *ngIf="buttonType == 'likes'">
+            <div class="card" style="background-color: #bdc5f8; margin-bottom: 25px !important"
+              *ngFor="let prompt of likesList">
+              <div class="card innerCard">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div id="float">
+                    <img *ngIf="!(this.authDetails && this.authDetails.userSet.bookmarks && this.authDetails.userSet.bookmarks.hasOwnProperty(prompt.promptID))" src="assets/images/btn_save.png" class="rounded float-right" alt="..."
+                      style="margin-top: 30px" (click)="bookmarkPrompt(prompt)" />
+                      <img
+                        *ngIf="(this.authDetails && this.authDetails.userSet.bookmarks && this.authDetails.userSet.bookmarks.hasOwnProperty(prompt.promptID))"
+                        src="assets/images/bookmarked.png"
+                        class="rounded float-right"
+                        alt="..."
+                        style="margin-top: 40px;margin-right: 8px;"
+                        (click)="bookmarkPrompt(prompt)"
+                      />
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="promptimage" style="max-width:60px; max-height:60px;">
+                      <a routerLink="/user-profile" [queryParams]="{ id: prompt.userID }" target="_blank" style="display: flex;">
+                      <img src="{{ prompt.userImageURL }}" alt="{{ prompt.userName }}" height="60px;" width="60px;"
+                        style="border-radius: 50%;margin-top:4px;" /></a>
+                    </div>
+                    <div class="promptimage1" id="promptimagemobile"
+                      style="max-width:60px; max-height:60px; display: none;">
+                      <a routerLink="/user-profile" [queryParams]="{ id: prompt.userID }" target="_blank" style="display: flex;">
+                      <img src="{{ prompt.userImageURL }}" alt="{{ prompt.userName }}" target="_blank" height="100%" width="100%"
+                        style="border-radius: 50%;margin-top:4px;"/> </a>
+                    </div>
+                    &nbsp; &nbsp;
+                    <div class="user">
+                      <a routerLink="/user-profile" [queryParams]="{ id: prompt.userID }" target="_blank"style="display: flex;">
+                      <p
+                        style="color: #3f51b5; font-size: 14px; margin-top: 15px !important;font-weight: bold;">{{
+                        prompt.userName
+                      }} </p>
+                    </a>
+
+
+                      &nbsp; &nbsp;
+                      <!-- <img src="assets/images/add.png" alt="Follow" style="margin-top:-73px;margin-left:112px;" /> -->
+                      <p style="
+                      
+                      margin-top: -40px;
+                      color: #3f51b5;
+                      font-size: 14px;
+                      font-weight: 400;
+                      text-transform: uppercase;
+                    ">
+                     {{ -1 * prompt.time.time | date: "dd MMM yyyy" }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="card-body">
+                        <p class="text-justify">
+                          {{ prompt.userPrompt }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                      <img *ngIf="!(prompt.likes && this.authDetails && prompt.likes.hasOwnProperty(this.authDetails.UUID))" src="assets/images/icn_favorite.png" class="rounded float-left" id="favo" alt="..."
+                        style="margin-left: 16px" height="40px" width="35px" (click)="promptLikeDislike(prompt)" />
+                        <img *ngIf="(prompt.likes && this.authDetails && prompt.likes.hasOwnProperty(this.authDetails.UUID))" src="assets/images/liked.png" class="rounded float-left" id="favo" alt="..."
+                        style="margin-left: 16px;margin-top: 1.3% !important;" height="40px" width="35px" (click)="promptLikeDislike(prompt)" />
+                      <p id="favo" style="margin-top:6px; margin-left:53px; color: #3f51b5;">{{prompt.likesCount ? prompt.likesCount : 0}}
+                      </p>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                      <div class="write">
+                        <a routerLink="/write-story" [queryParams]="{ id: prompt.promptID }"
+                          style="text-align: center; margin-left: 50px; color: #3f51b5 !important;">Write Story</a>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                      <img *ngIf="!(prompt.likes && this.authDetails && prompt.likes.hasOwnProperty(this.authDetails.UUID))" src="assets/images/icn_favorite.png" class="rounded float-left" id="favomobile" alt="..."
+                      style="margin-top: -31px;" height="40px" width="35px" (click)="promptLikeDislike(prompt)" />
+                      <img *ngIf="(prompt.likes && this.authDetails && prompt.likes.hasOwnProperty(this.authDetails.UUID))" src="assets/images/liked.png" class="rounded float-left" id="favomobile" alt="..."
+                      style="margin-top: -31px;" height="40px" width="35px" (click)="promptLikeDislike(prompt)" />
+                       
+                      <p id="favomobile" style=" margin-top:-27px; margin-left: 38px; color: #3f51b5;">
+                        {{prompt.likesCount ? prompt.likesCount : 0}}</p>
+                    </div>
+                  </div>
+                  <br>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12"></div>
+                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 genres"
+                  style="margin-left: 57px; margin-bottom: 3px;">
+                  <a style="color: black !important; text-transform: capitalize; cursor: pointer;" data-toggle="modal" (click)="open(content,prompt.genre)" >Genres</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- likes card end here -->
+
+          <div *ngIf="buttonType == 'prompts' && userDetails !== undefined && userDetails.userPrompts == undefined">
+            <div class="card text-center">
+              <div class="card-body">
+                <img src="/assets\images\logo.png" class="rounded float-left" height="40px" /><br /><br /><br /><br />
+                <p class="card-text-center">No prompts submitted(yet)! ;).</p>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="buttonType == 'stories'  && userDetails.stories == undefined">
+            <div class="card text-center">
+              <div class="card-body">
+                <img src="/assets\images\logo.png" class="rounded float-left" height="40px" /><br /><br /><br /><br />
+                <p class="card-text-center">No Stories, yet. Start writing!.</p>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="buttonType == 'bookmarks'  && userDetails.bookmarks == undefined">
+            <div class="card text-center">
+              <div class="card-body">
+                <img src="/assets\images\logo.png" class="rounded float-left" height="40px" /><br /><br /><br /><br />
+                <p class="card-text-center">Bookmark your favourite prompts to see them here!</p>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="buttonType == 'likes' && userDetails.likes == undefined">
+            <div class="card text-center">
+              <div class="card-body">
+                <img src="/assets\images\logo.png" class="rounded float-left" height="40px" /><br /><br /><br /><br />
+                <p class="card-text-center">No liked prompts here!</p>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

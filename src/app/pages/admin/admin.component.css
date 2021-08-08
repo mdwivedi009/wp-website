@@ -1,0 +1,160 @@
+#profile-image{
+     border-radius:50%;
+}
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+input:focus, input.form-control:focus {
+
+  outline:none !important;
+  outline-width: 0 !important;
+  box-shadow: none;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+}
+*:focus {
+  outline: none;
+}
+.card{
+     border-radius:30px;   
+}
+#editprompt{
+margin-top:-57px;
+}
+.btn-outline-primary {
+    border-radius: 10px !important;
+    border: 1px solid white;
+    color:white;
+    background-color: #3f51b5 !important;
+     
+}
+.btn-outline-primary:hover {
+    background-color: #3f51b5 !important;
+    color: white;
+  }
+ 
+  @media screen and (min-width:300px) and (max-width:460px)  {
+    #rejectmobile{  
+    margin-top:-22px;
+    }
+  }
+
+@media screen and (min-width:300px) and (max-width:460px)  {
+  #reject{  
+  display:none;
+  }
+}
+@media screen and (min-width:300px) and (max-width:421px)  {
+  #rejectprompt{  
+  margin-right:0px !important;
+  font-size:10px !important;
+   margin-top:-38px !important; 
+  }
+}
+@media screen and (min-width:422px) and (max-width:576px)  {
+  #rejectprompt{  
+  margin-right:0px !important;
+  font-size:10px;
+  
+  }
+}
+@media screen and (min-width:1240px) and (max-width:2000px)  {
+  #rejectprompt{  
+  margin-right:94px !important;
+  
+  }
+}
+@media screen and (min-width:300px) and (max-width:575px)  {
+  #hour{  
+  display:none;
+  }
+}
+@media screen and (min-width:300px) and (max-width:575px)  {
+  #edit{  
+  display:none;
+  }
+}
+@media screen and (min-width:300px) and (max-width:575px)  {
+  #accept{  
+  display:none;
+  }
+}
+@media screen and (min-width:1240px) and (max-width:2000px)  {
+  #accept{  
+  margin-left:87px !important;
+  }
+}
+@media screen and (min-width:576px) and (max-width:826px)  {
+  #accept{  
+  margin-left:-18px !important;
+  }
+}
+@media screen and (min-width:421px) and (max-width:575px)  {
+  #hourmobile{  
+  font-size:10px;
+  }
+}
+@media screen and (min-width:424px) and (max-width:575px)  {
+  #editmobile{  
+  margin-top:-60px !important;
+  margin-left:213px !important;
+  font-size:10px;
+  }
+}
+@media screen and (min-width:424px) and (max-width:575px)  {
+  #acceptmobile{  
+ margin-top:-112px;
+ margin-left:94px !important;
+ font-size:10px;
+  }
+}
+
+@media screen and (min-width:576px) and (max-width:650px)  {
+  #acceptmobile{  
+ margin-top:-91px !important;
+ margin-left:158px !important;
+  }
+} 
+
+@media screen and (min-width:320px) and (max-width:421px)  {
+  #hourmobile{  
+  margin-left:-13px;
+  font-size:10px;
+  }
+}
+@media screen and (min-width:320px) and (max-width:423px)  {
+  #editmobile{   
+  margin-top:-68px !important;
+  margin-left:50px !important;
+  font-size:10px;
+  
+  }
+}
+@media screen and (min-width:320px) and (max-width:423px)  {
+  #acceptmobile{  
+  margin-top:-117px;
+  font-size:10px;
+  margin-left:135px;
+
+  }
+}
+@media screen and (min-width:576px) and (max-width:3000px)  {
+  #hourmobile{  
+  display:none;
+  }
+}
+@media screen and (min-width:576px) and (max-width:3000px)  {
+  #editmobile{  
+ display:none;
+  }
+}
+@media screen and (min-width:576px) and (max-width:3000px)  {
+  #acceptmobile{  
+  display:none;
+  }
+}
+
+

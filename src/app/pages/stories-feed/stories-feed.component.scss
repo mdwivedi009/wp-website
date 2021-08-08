@@ -1,0 +1,88 @@
+#submit-prompts {
+    margin-top: 80vh;
+    text-transform: uppercase;
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    right: 0;
+    margin-right: 20px;
+  }
+  
+  p {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+  
+  .text {
+    color: #3f51b5;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+  
+    mat-card-title,
+    mat-card-subtitle,
+    .mat-card-image {
+      cursor: pointer;
+    }
+  
+    .card {
+      border-radius: 30px;
+    }
+  
+    #container {
+      width: 950px;
+      height: 100px;
+      overflow-x: scroll;
+      margin: 2%;
+    }
+  
+    #container::-webkit-scrollbar {
+      display: block;
+    }
+  
+    #content {
+      width: 500px;
+    }
+  
+    button {
+      margin: 6px;
+      border-radius: 10px;
+    }
+    #new {
+      border-radius: 10px;
+    }
+  }
+  
+  .card {
+    border-radius: 30px;
+  }
+  
+  img {
+    cursor: pointer;
+  }
+  
+  #content {
+    height: 38px;
+    width: 800px;
+    overflow: hidden;
+    overflow-x: scroll;
+  }
+  
+  #content::-webkit-scrollbar {
+    display: none;
+  }
+  
+  textarea::placeholder {
+    color: #3f51b5 !important;
+  }
+  
+  .btn-outline-primary {
+    border-radius: 20px !important;
+    border: 1px solid white;
+    color: black;
+    background-color: white;
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #3f51b5;
+    color: white;
+  }
+ 

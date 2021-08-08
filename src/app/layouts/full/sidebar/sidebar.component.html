@@ -1,0 +1,143 @@
+<!-- ============================================================== -->
+<!-- sidebar -->
+<!-- ============================================================== -->
+<div class="user-profile" style="background-color: #3f51b5">
+  <!-- User profile image -->
+  <div class="profile-img" *ngIf="authDetails">
+    <img *ngIf="authDetails"
+      src="{{
+        profilePic !== '' ? authDetails.picture.data.url : authDetails.picture
+      }}"
+      alt="user"
+    />
+  </div>
+  <div class="profile-img" *ngIf="!authDetails">
+    <img src="assets/images/brand-logo.png" alt="user" id="wp-logo" />
+  </div>
+  <!-- User profile text-->
+  <!-- ============================================================== -->
+  <!-- Profile - style you can find in header.scss -->
+  <!-- ============================================================== -->
+  <div class="profile-text" *ngIf="authDetails">
+    <a [matMenuTriggerFor]="sdprofile" class="">
+      {{ authDetails.name }} <i class="ti-angle-down font-12 m-l-5"></i
+    ></a>
+  </div>
+  <div class="wp-text" *ngIf="!authDetails">
+    <a [matMenuTriggerFor]="sdprofile" class="">
+      Writing Prompts <i class="ti-angle-down font-12 m-l-5"></i
+    ></a>
+  </div>
+  <mat-menu #sdprofile="matMenu" class="mymegamenu">
+    <button mat-menu-item><mat-icon>settings</mat-icon> Settings</button>
+    <button mat-menu-item><mat-icon>account_box</mat-icon> Profile</button>
+    <button mat-menu-item>
+      <mat-icon>notifications_off</mat-icon> Disable notifications
+    </button>
+    <button mat-menu-item><mat-icon>exit_to_app</mat-icon> Sign Out</button>
+  </mat-menu>
+</div>
+<mat-nav-list appAccordion>
+  <mat-list-item
+    appAccordionLink
+    *ngFor="let menuitem of menuItems.getMenuitem()"
+    routerLinkActive="selected"
+    group="{{ menuitem.state }}"
+  >
+    <a
+      class=""
+      appAccordionToggle
+      [routerLink]="['/', menuitem.state]"
+      *ngIf="menuitem.type === 'link'"
+    >
+      <!-- <mat-icon>{{ menuitem.icon }}</mat-icon>  -->
+      <img
+        src="{{ menuitem.icon }}"
+        height="30px"
+        style="padding-right: 10px"
+      />
+      <h6 style="color: #a2abba; margin-top: 5%">{{ menuitem.name }}</h6>
+      <span fxFlex></span>
+      <span
+        class="label label-{{ badge.type }}"
+        *ngFor="let badge of menuitem.badge"
+        >{{ badge.value }}</span
+      >
+    </a>
+  </mat-list-item>
+  <mat-list-item *ngIf="authDetails && emailId.includes(this.authDetails.email)">
+    <a [routerLink]="['/admin']">
+      <img
+        src="/assets/images/sidebar-icon/admin.png"
+        height="30px"
+        style="padding-right: 10px"
+      />
+      <h6 style="color: #a2abba; margin-top: 5%">Admin Panel</h6>
+      <span fxFlex></span>
+    </a>
+  </mat-list-item>
+
+  <mat-list-item *ngIf="authDetails && emailId.includes(this.authDetails.email)">
+    <a [routerLink]="['/admin-story']">
+      <img
+        src="/assets/images/sidebar-icon/admin.png"
+        height="30px"
+        style="padding-right: 10px"
+      />
+      <h6 style="color: #a2abba; margin-top: 5%">Admin Story Panel</h6>
+      <span fxFlex></span>
+    </a>
+  </mat-list-item>
+  <mat-list-item class="mobile-nav">
+    <a [routerLink]="['/prompts-feed']">
+      <img
+        src="/assets/images/earth.png"
+        height="30px"
+        style="padding-right: 10px"
+      />
+      <h6 style="color: #a2abba; margin-top: 5%">Prompt Feed</h6>
+      <span fxFlex></span>
+    </a>
+    <a [routerLink]="['/follow-feed']" *ngIf="authToken">
+      <img
+        src="/assets/images/user.png"
+        height="30px"
+        style="padding-right: 10px"
+      />
+      <h6 style="color: #a2abba; margin-top: 5%">Follow Feed</h6>
+      <span fxFlex></span>
+    </a>
+    <a [routerLink]="['/interaction-feed']" *ngIf="authToken">
+      <mat-icon style="color: #3f51b5">notifications</mat-icon>
+      <h6 style="color: #a2abba; margin-top: 5%">Interaction Feed</h6>
+      <span fxFlex></span>
+    </a>
+    <a [routerLink]="['/stories-feed']">
+      <img
+        src="/assets/images/script.png"
+        height="30px"
+        style="padding-right: 10px"
+      />
+      <h6 style="color: #a2abba; margin-top: 5%">Stories Feed</h6>
+      <span fxFlex></span>
+    </a>
+    <a [routerLink]="['/login']" *ngIf="!authToken">
+      <img
+        src="/assets/images/login.png"
+        height="30px"
+        style="padding-right: 10px"
+      />
+      <h6 style="color: #a2abba; margin-top: 5%">Login</h6>
+      <span fxFlex></span>
+    </a>
+    <a (click)="authService.SignOut()" *ngIf="authToken">
+      <img
+        src="/assets/images/logout.png"
+        height="30px"
+        style="padding-right: 10px"
+      />
+      <h6 style="color: #a2abba; margin-top: 5%">Logout</h6>
+      <span fxFlex></span>
+    </a>
+  </mat-list-item>
+</mat-nav-list>

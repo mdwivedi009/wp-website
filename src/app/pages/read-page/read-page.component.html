@@ -1,0 +1,183 @@
+<div class="main-container">
+  <mat-toolbar color="primary" class="topbar telative">
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/">
+        <b>
+          <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+          <img src="assets/images/brand-logo.png" alt="homepage" class="light-logo" style="height: 50px" />
+        </b>
+        <span fxShow="false" fxShow.gt-xs>
+          <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+          <span>Writing Prompts</span>
+        </span>
+      </a>
+    </div>
+    <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span fxFlex></span>
+    <app-header></app-header>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+    <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'"
+      fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches"
+      style="background-color: #ffffff">
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+    <mat-sidenav-content class="page-wrapper">
+      <div class="page-content">
+
+        <div class="container" *ngIf="storySet">
+          <div class="card" style="background-color: #bdc5f8; border-radius:20px; margin-bottom: 45px;">
+            <p style="margin:10px;">
+              {{storySet !== undefined && storySet.promptSet !== undefined ? storySet.promptSet.userPrompt: "Loading"}}
+            </p>
+            <div class="card" style="border-radius:20px; text-align:center;">
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="card-body">
+                    <a routerLink="/user-profile" [queryParams]="{ id: storySet.userID }">
+                      <img src="{{storySet !== undefined ? storySet.userImageURL : ''}}" class="float-left"
+                        height="80px" width="80px" alt="Profile Image" id="profile-image" /></a>
+                    <div class="row">
+                      <a routerLink="/user-profile" [queryParams]="{ id: storySet.userID }" id="auth-name"
+                        style="margin-top:2%; margin-left:2%; color:#3f51b5 !important; text-transform: capitalize;">{{storySet !== undefined ? storySet.userName : 'Loading'}}</a>
+                    </div>
+                    <div>
+
+                      <p class="float-left" style="font-size:12px;margin-left:18px; color: #3f51b5;">
+                        {{-1 * storySet.time.time | date: "dd MMM yyyy" }}</p>
+                    </div>
+                    <br>
+                    <div>
+                      <input type="checkbox" class="read-more-state" id="post-1" />
+                      <br />
+                      <label for="post-1" style="text-align:justify !important;"
+                        class="read-more-wrap read-more-trigger">
+                        {{storySet !== undefined ? storySet.stSnip: ""}}
+                        <span class="read-more-target">{{this.storySet.completeStory}}</span></label>
+                      <br />
+                      <label *ngIf="this.storySet.completeStory && this.storySet.completeStory!==this.storySet.completeStory.substr(0, 180)"
+                        for="post-1" class="read-more-trigger read-more-button"></label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-lg-7 col-sm-7 col-md-7 col-xs-7" style="margin-top: 22px;">
+                <a routerLink="/user-profile" [queryParams]="{ id: commentSet[0] ? commentSet[0].userID: '' }">
+                  <img *ngIf="commentSet[0] && commentSet[0].userImageURL"
+                    src="{{commentSet[0] !== undefined ? commentSet[0].userImageURL : ''}}" alt="Profile Image"
+                    class="float-left" width="50px" height="50px" 
+                    style="border-radius:50%; margin-top: -6px; margin-left:26px;"></a> &nbsp;&nbsp;
+
+                <a routerLink="/user-profile" [queryParams]="{ id: commentSet[0] ? commentSet[0].userID : '' }"
+                  style="font-size:12px; color:black !important; text-transform:capitalize;">{{commentSet[0] !== undefined ? commentSet[0].userName : ''}}</a>
+              </div>
+              <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                <p class="float-right" id="date" style="margin-top:18px; margin-right:18px;">
+                  {{commentSet[0] !== undefined ? (-1 * commentSet[0].time.time | date: "dd MMM yyyy") : ''}}</p>
+                <p id="date-m">
+                  {{commentSet[0] !== undefined ? (-1 * commentSet[0].time.time | date: "dd MMM yyyy") : ''}}</p>
+              </div>
+            </div>
+            <div class="row"> 
+              <div
+                class="col-lg-11 offset-lg-1 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-xs-10 col-xs-offset-2" style="margin-left: 80px;">
+                <p id="laptop">{{commentSet[0] !== undefined ? commentSet[0].cText : ''}}</p>
+                <p id="mobile">{{commentSet[0] !== undefined ? commentSet[0].cText : ''}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div *ngIf="storySet.comments" class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                <a (click)="reply(commentSet[0])" id="reply"
+                  style="color:#3f51b5 !important;margin-left:90px;text-transform:capitalize; cursor: pointer;">Reply</a>
+                <!-- <a (click)="reply(commentSet[0])" id="replymobile"
+                  style="color:#3f51b5 !important;margin-left:90px;text-transform:capitalize; cursor: pointer;">Reply</a> -->
+              </div>
+              <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                <a *ngIf="storySet.comments" routerLink="/see-replies"
+                  [queryParams]="{ id: commentSet[0] !== undefined ? commentSet[0].cID :0  }" id="seereplies"
+                  style="color:black !important; text-transform: capitalize;">
+                  See replies({{commentSet[0] !== undefined ? commentSet[0].replyLength.length : 0}})
+                </a>
+                <a *ngIf="storySet.comments" routerLink="/see-replies"
+                  [queryParams]="{ id: commentSet[0] !== undefined ? commentSet[0].cID :0 }" id="seerepliesmobile"
+                  style="color:black !important; text-transform: capitalize;">
+                  See replies({{commentSet[0] !== undefined ? commentSet[0].replyLength.length : 0}})
+                </a>
+
+                <!-- <span id="seereplies" *ngIf="!storySet.comments"
+                  style="color:black !important; text-transform: capitalize;">
+                  No Reply Found
+                </span>
+
+                <span id="seerepliesmobile" *ngIf="!storySet.comments"
+                  style="color:black !important; text-transform: capitalize;">
+                  No Reply Found
+                </span> -->
+
+              </div>
+              <br>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align:center;">
+                <a routerLink="/comment" [queryParams]="{ storyID: storyID }"
+                  style="color: #3f51b5 !important; text-transform:capitalize;">
+                  Read more comments({{commentList ? commentList.length: 0}})>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="snav.opened || snav.mode=='over' ">
+            <div class="footer" style="bottom:0; position:fixed; width:100%">
+              <div class="editable"contenteditable id="editMe" (input)="handleComment($event)" placeholder="Write a short comment.." oninput="if(this.innerHTML.trim()==='<br>')this.innerHTML=''" 
+              style="border-radius:200px;border: 2px solid lightgray;height:55px;padding: 12px; overflow:hidden;background-color: white;">
+              </div>
+              <div class="send">
+                <img src="assets/images/send.png" class="float-right" alt="" (click)="sendComment()"
+                  style="margin-top:-39px; margin-right:21px; cursor: pointer !important;" />
+                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                  <ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+                  </ngx-spinner>
+                </div>
+              </div>
+            </div>  
+
+            <div class="footermobile" style="bottom:0; position:fixed;">
+              <div class="editable"  placeholder="123-45-678" contenteditable id="editMe" (input)="handleComment($event)"  placeholder="Write a short comment.." oninput="if(this.innerHTML.trim()==='<br>')this.innerHTML=''" 
+              style="border-radius:200px;border: 2px solid lightgray;height:55px;padding: 12px; overflow:hidden;background-color: white;">
+              </div>
+              <div class="send">
+                <img src="assets/images/send.png" class="float-right" alt="" (click)="sendComment()"
+                  style="margin-top:-39px; margin-right:21px; cursor: pointer !important;" />
+                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                  <ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+                  </ngx-spinner>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="!(snav.opened || snav.mode=='over')">
+            <div class="footermobileclose" style="bottom:0; position:fixed;">
+              <div class="editable" contenteditable id="editMe" (input)="handleComment($event)"  placeholder="Write a short comment.." oninput="if(this.innerHTML.trim()==='<br>')this.innerHTML=''" 
+              style="border-radius:200px;border: 2px solid lightgray;height:55px;padding: 12px; overflow:hidden;background-color: white;">
+              </div>
+              <div class="send">
+                <img src="assets/images/send.png" class="float-right" alt="" (click)="sendComment()"
+                  style="margin-top:-39px; margin-right:21px; cursor: pointer !important;" />
+                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                  <ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+                  </ngx-spinner>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,478 @@
+
+<div class="main-container">
+    <mat-toolbar color="primary" class="topbar telative">
+        <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/">
+                <b>
+                    <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo">
+                    <img src="assets/images/brand-logo.png" alt="homepage" class="light-logo" style="height: 50px;">
+                </b>
+                <span fxShow="false" fxShow.gt-xs>
+                 <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo">
+                 <span>Writing Prompts</span>
+                </span> </a>
+        </div>
+        <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span fxFlex></span>
+        <app-header></app-header>
+    </mat-toolbar>
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+        <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'" fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches" style="background-color: #ffffff"  >
+                <app-sidebar></app-sidebar>
+        </mat-sidenav>
+        <mat-sidenav-content class="page-wrapper">
+                <div class="page-content">
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center;">
+                          <span>Sort by:</span> &nbsp;
+                          <select
+                            class="option"
+                            style="border-radius: 10px;"
+                            name="subject"
+                          >
+                            <option disabled="disabled" selected="selected">Most Recent</option>
+                    
+                            <option>
+                              <input type="radio" />
+                              Most Recent
+                            </option>
+                            <option>Most Upvoted</option>
+                          </select>
+                        </div>
+                      </div>
+                      <br>
+
+<!-- prompt card start -->
+<div class="card" style="background-color: #bdc5f8;">
+  <div class="card">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div id="float">
+      <img
+        src="assets/images/btn_save.png"
+        class="rounded float-right"
+        alt="..."
+        style="margin-top:26px;"     
+      />
+      </div>
+      <br />
+      <a href>
+        <img
+          src="assets/images/btn_save.png"
+          alt=""
+          />
+        &nbsp;
+        <span style="color: #3f51b5; font-size:14px; margin-left: 1%">Manish</span>
+      </a>
+      &nbsp;
+      <img src="assets/images/add.png" alt="Follow" />
+      <p style="margin-left:65px; margin-top:-9px; color: #3f51b5; font-size: 12px">
+        8 Hours Ago
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card-body">
+          <p class="text-justify">
+            Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium
+            purus sit amet fermentum. Donec sed odio operae, eu vulputate
+            felis rhoncus. Praeterea iter est quasdam res quas ex communi. At
+            nos hinc posthac, sitientis piros Afros. Petierunt uti sibi
+            concilium totius Galliae in diem certam indicere. Cras mattis
+            iudicium purus sit amet fermentum.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+        <img
+          src="assets/images/icn_favorite.png"
+          class="rounded float-left"
+          alt="..."
+          style="margin:2%; margin-left:16px;"
+          height="35px"
+          width="35px"
+        />
+      </div>
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" style="padding-top: 19px;">
+        <div class="write">
+        <a routerLink="/write-story" style="text-align: center;margin-left:50px; color: #3f51b5 !important;">Write Story</a>
+      </div>
+      </div>
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+        <img
+          src="assets/images/share.png"
+          id="share"
+          class="rounded float-right"
+          
+          alt="..."
+          style="padding: 3%; margin-right: 5%; margin-top: -3%"
+        />
+          <img
+            src="assets/images/share.png"
+            id="share1"
+            class="rounded float-right"
+            alt="..."
+          />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center; margin:1%">
+      
+      <a routerLink="/read-story" style="color:black !important;">Read Stories(1)></a>
+    </div>
+  </div>
+</div>
+<br /> 
+
+<div class="card" style="background-color: #bdc5f8;">
+  <div class="card">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div id="float">
+      <img
+        src="assets/images/btn_save.png"
+        class="rounded float-right"
+        alt="..."
+        style="margin-top:26px;"     
+      />
+      </div>
+      <br />
+      <a href>
+        <img
+          src="assets/images/btn_save.png"
+          alt=""
+          />
+        &nbsp;
+        <span style="color: #3f51b5; font-size:14px; margin-left: 1%">Vicky</span>
+      </a>
+      &nbsp;
+      <img src="assets/images/add.png" alt="Follow" />
+      <p style="margin-left:65px; margin-top:-9px; color: #3f51b5; font-size: 12px">
+        21 Hours Ago
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card-body">
+          <p class="text-justify">
+            Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium
+            purus sit amet fermentum. Donec sed odio operae, eu vulputate
+            felis rhoncus. Praeterea iter est quasdam res quas ex communi. At
+            nos hinc posthac, sitientis piros Afros. Petierunt uti sibi
+            concilium totius Galliae in diem certam indicere. Cras mattis
+            iudicium purus sit amet fermentum.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+        <img
+          src="assets/images/icn_favorite.png"
+          class="rounded float-left"
+          alt="..."
+          style="margin:2%; margin-left:16px;"
+          height="35px"
+          width="35px"
+        />
+      </div>
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" style="padding-top: 19px;">
+        <div class="write">
+        <a routerLink="/write-story" style="text-align: center;margin-left:50px; color: #3f51b5 !important;">Write Story</a>
+      </div>
+      </div>
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+        <img
+          src="assets/images/share.png"
+          id="share"
+          class="rounded float-right"
+          
+          alt="..."
+          style="padding: 3%; margin-right: 5%; margin-top: -3%"
+        />
+          <img
+            src="assets/images/share.png"
+            id="share1"
+            class="rounded float-right"
+            alt="..."
+          />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center; margin:1%">
+      
+      <a routerLink="/read-story" style="color:black !important;">Read Stories(1)></a>
+    </div>
+  </div>
+</div>
+<br /> 
+
+<div class="card" style="background-color: #bdc5f8;">
+  <div class="card">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div id="float">
+      <img
+        src="assets/images/btn_save.png"
+        class="rounded float-right"
+        alt="..."
+        style="margin-top:26px;"     
+      />
+      </div>
+      <br />
+      <a href>
+        <img
+          src="assets/images/btn_save.png"
+          alt=""
+          />
+        &nbsp;
+        <span style="color: #3f51b5; font-size:14px; margin-left: 1%">John</span>
+      </a>
+      &nbsp;
+      <img src="assets/images/add.png" alt="Follow" />
+      <p style="margin-left:65px; margin-top:-9px; color: #3f51b5; font-size: 12px">
+        21-Aug-2020
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card-body">
+          <p class="text-justify">
+            Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium
+            purus sit amet fermentum. Donec sed odio operae, eu vulputate
+            felis rhoncus. Praeterea iter est quasdam res quas ex communi. At
+            nos hinc posthac, sitientis piros Afros. Petierunt uti sibi
+            concilium totius Galliae in diem certam indicere. Cras mattis
+            iudicium purus sit amet fermentum.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+        <img
+          src="assets/images/icn_favorite.png"
+          class="rounded float-left"
+          alt="..."
+          style="margin:2%; margin-left:16px;"
+          height="35px"
+          width="35px"
+        />
+      </div>
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" style="padding-top: 19px;">
+        <div class="write">
+        <a routerLink="/write-story" style="text-align: center;margin-left:50px; color: #3f51b5 !important;">Write Story</a>
+      </div>
+      </div>
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+        <img
+          src="assets/images/share.png"
+          id="share"
+          class="rounded float-right"
+          
+          alt="..."
+          style="padding: 3%; margin-right: 5%; margin-top: -3%"
+        />
+          <img
+            src="assets/images/share.png"
+            id="share1"
+            class="rounded float-right"
+            alt="..."
+          />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center; margin:1%">
+      
+      <a routerLink="/read-story" style="color:black !important;">Read Stories(1)></a>
+    </div>
+  </div>
+</div>
+<br /> 
+
+<div class="card" style="background-color: #bdc5f8;">
+  <div class="card">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div id="float">
+      <img
+        src="assets/images/btn_save.png"
+        class="rounded float-right"
+        alt="..."
+        style="margin-top:26px;"     
+      />
+      </div>
+      <br />
+      <a href>
+        <img
+          src="assets/images/btn_save.png"
+          alt=""
+          />
+        &nbsp;
+        <span style="color: #3f51b5; font-size:14px; margin-left: 1%">Kumar vicky</span>
+      </a>
+      &nbsp;
+      <img src="assets/images/add.png" alt="Follow" />
+      <p style="margin-left:65px; margin-top:-9px; color: #3f51b5; font-size: 12px">
+        8 Hours Ago
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card-body">
+          <p class="text-justify">
+            Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium
+            purus sit amet fermentum. Donec sed odio operae, eu vulputate
+            felis rhoncus. Praeterea iter est quasdam res quas ex communi. At
+            nos hinc posthac, sitientis piros Afros. Petierunt uti sibi
+            concilium totius Galliae in diem certam indicere. Cras mattis
+            iudicium purus sit amet fermentum.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+        <img
+          src="assets/images/icn_favorite.png"
+          class="rounded float-left"
+          alt="..."
+          style="margin:2%; margin-left:16px;"
+          height="35px"
+          width="35px"
+        />
+      </div>
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" style="padding-top: 19px;">
+        <div class="write">
+        <a routerLink="/write-story" style="text-align: center;margin-left:50px; color: #3f51b5 !important;">Write Story</a>
+      </div>
+      </div>
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+        <img
+          src="assets/images/share.png"
+          id="share"
+          class="rounded float-right"
+          
+          alt="..."
+          style="padding: 3%; margin-right: 5%; margin-top: -3%"
+        />
+          <img
+            src="assets/images/share.png"
+            id="share1"
+            class="rounded float-right"
+            alt="..."
+          />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center; margin:1%">
+      
+      <a routerLink="/read-story" style="color:black !important;">Read Stories(1)></a>
+    </div>
+  </div>
+</div>
+<br /> 
+
+<div class="card" style="background-color: #bdc5f8;">
+  <div class="card">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div id="float">
+      <img
+        src="assets/images/btn_save.png"
+        class="rounded float-right"
+        alt="..."
+        style="margin-top:26px;"     
+      />
+      </div>
+      <br />
+      <a href>
+        <img
+          src="assets/images/btn_save.png"
+          alt=""
+          />
+        &nbsp;
+        <span style="color: #3f51b5; font-size:14px; margin-left: 1%">Vicky</span>
+      </a>
+      &nbsp;
+      <img src="assets/images/add.png" alt="Follow" />
+      <p style="margin-left:65px; margin-top:-9px; color: #3f51b5; font-size: 12px">
+        8 Hours Ago
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card-body">
+          <p class="text-justify">
+            Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium
+            purus sit amet fermentum. Donec sed odio operae, eu vulputate
+            felis rhoncus. Praeterea iter est quasdam res quas ex communi. At
+            nos hinc posthac, sitientis piros Afros. Petierunt uti sibi
+            concilium totius Galliae in diem certam indicere. Cras mattis
+            iudicium purus sit amet fermentum.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+        <img
+          src="assets/images/icn_favorite.png"
+          class="rounded float-left"
+          alt="..."
+          style="margin:2%; margin-left:16px;"
+          height="35px"
+          width="35px"
+        />
+      </div>
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12" style="padding-top: 19px;">
+        <div class="write">
+        <a routerLink="/write-story" style="text-align: center;margin-left:50px; color: #3f51b5 !important;">Write Story</a>
+      </div>
+      </div>
+      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+        <img
+          src="assets/images/share.png"
+          id="share"
+          class="rounded float-right"
+          
+          alt="..."
+          style="padding: 3%; margin-right: 5%; margin-top: -3%"
+        />
+          <img
+            src="assets/images/share.png"
+            id="share1"
+            class="rounded float-right"
+            alt="..."
+          />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center; margin:1%">
+      
+      <a routerLink="/read-story" style="color:black !important;">Read Stories(1)></a>
+    </div>
+  </div>
+</div>
+<br /> 
+
+<!-- prompt card end -->
+                </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

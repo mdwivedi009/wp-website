@@ -1,0 +1,124 @@
+<div class="main-container">
+  <mat-toolbar color="primary" class="topbar telative">
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/">
+        <b>
+          <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+          <img src="assets/images/brand-logo.png" alt="homepage" class="light-logo" style="height: 50px" />
+        </b>
+        <span fxShow="false" fxShow.gt-xs>
+          <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+          <span>Writing Prompts</span>
+        </span>
+      </a>
+    </div>
+    <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span fxFlex></span>
+    <app-header></app-header>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+    <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'"
+      fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches"
+      style="background-color: #ffffff">
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+    <mat-sidenav-content class="page-wrapper">
+
+      <div class="page-content">
+        <span>Comments</span><br><br>
+        <div *ngIf="commentList">
+        <div class="card" style="border-radius:20px; padding:1%; margin-bottom: 20px;" *ngFor="let comment of commentList">
+          <div class="body">
+            <div class="row">
+              <div class="col-lg-7 col-sm-7 col-md-7 col-xs-7">
+                <a routerLink="/user-profile" [queryParams]="{ id: comment.userID }" >
+                <img src="{{comment.userImageURL}}" alt="" class="float-left" width="50px" height="50px"
+                  style="border-radius:50%; margin-left:13px;"></a>&nbsp;&nbsp;
+
+                  <a routerLink="/user-profile" [queryParams]="{ id: comment.userID }" >
+                    <p id="name" style="font-size:12px; margin-top:10px; margin-left:80px;color:black;" >{{comment.userName}}</p></a>
+                    <a routerLink="/user-profile" [queryParams]="{ id: comment.userID }" >
+                <p id="namemobile" style="font-size:12px;color:black;">{{comment.userName}}</p></a>
+              </div>
+              <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                <p class="float-right" id="date" style="margin-top:10px;">{{-1 * comment.time.time | date: "dd MMM yyyy"}}</p>
+                <p id="date-m">{{-1 * comment.time.time | date: "dd MMM yyyy"}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div
+                class="col-lg-11 offset-lg-1 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-xs-10 col-xs-offset-2" style="margin-left: 10px;">
+                <p id="laptop">{{comment.cText}}</p>
+                <p id="mobile">{{comment.cText}}</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                <a (click)="reply(comment)" id="reply"
+                  style="color:#3f51b5 !important;margin-left:85px; text-transform: capitalize; cursor: pointer;">
+                  Reply
+                </a>
+              </div>
+              <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                <a routerLink="/see-replies" [queryParams]="{ id: comment.cID }" id="seereplies"
+                  style="color:rgb(134, 130, 130) !important; text-transform: capitalize;">See replies({{comment.replyLength !== undefined ? comment.replyLength : 0}})</a>
+                <a routerLink="/see-replies" [queryParams]="{ id: comment.cID }" id="seerepliesmobile"
+                  style="color:black !important; text-transform: capitalize;">See replies({{comment.replyLength !== undefined ? comment.replyLength : 0}})</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+      </div>
+      
+      <!-- <div *ngIf="snav.opened || snav.mode=='over' ">
+        <div class="footer" style="bottom:0; position:fixed; width:100%">
+          <div class="editable" contenteditable id="editMe" (input)="handleComment($event)"
+          style="border-radius:200px;border: 2px solid lightgray;height:55px;padding: 12px; overflow:hidden;background-color: white;">
+          </div>
+          <div class="send">
+            <img src="assets/images/send.png" class="float-right" alt="" (click)="sendComment()"
+              style="margin-top:-39px; margin-right:21px; cursor: pointer !important;" />
+            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+              <ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+              </ngx-spinner>
+            </div>
+          </div>
+        </div>  
+
+        <div class="footermobile" style="bottom:0; position:fixed;">
+          <div class="editable" contenteditable id="editMe" (input)="handleComment($event)"
+          style="border-radius:200px;border: 2px solid lightgray;height:55px;padding: 12px; overflow:hidden;background-color: white;">
+          </div>
+          <div class="send">
+            <img src="assets/images/send.png" class="float-right" alt="" (click)="sendComment()"
+              style="margin-top:-39px; margin-right:21px; cursor: pointer !important;" />
+            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+              <ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+              </ngx-spinner>
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+      <!-- <div *ngIf="!(snav.opened || snav.mode=='over')">
+        <div class="footermobileclose" style="bottom:0; position:fixed;">
+          <div class="editable" contenteditable id="editMe" (input)="handleComment($event)"
+          style="border-radius:200px;border: 2px solid lightgray;height:55px;padding: 12px; overflow:hidden;background-color: white;">
+          </div>
+          <div class="send">
+            <img src="assets/images/send.png" class="float-right" alt="" (click)="sendComment()"
+              style="margin-top:-39px; margin-right:21px; cursor: pointer !important;" />
+            <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+              <ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+              </ngx-spinner>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

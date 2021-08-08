@@ -1,0 +1,156 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<div class="main-container">
+  <!-- ============================================================== -->
+  <!-- Topbar - style you can find in header.scss -->
+  <!-- ============================================================== -->
+  <mat-toolbar color="primary" class="topbar telative">
+    <!-- ============================================================== -->
+    <!-- Logo - style you can find in header.scss -->
+    <!-- ============================================================== -->
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/">
+        <!-- Logo icon --><b>
+          <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+          <!-- Dark Logo icon -->
+          <img
+            src="assets/images/logo-icon.png"
+            alt="homepage"
+            class="dark-logo"
+          />
+          <!-- Light Logo icon -->
+          <img
+            src="assets/images/brand-logo.png"
+            alt="homepage"
+            class="light-logo"
+            style="height: 50px;"
+          />
+        </b>
+        <!--End Logo icon -->
+        <!-- Logo text -->
+        <span fxShow="false" fxShow.gt-xs>
+          <!-- dark Logo text -->
+          <img
+            src="assets/images/logo-text.png"
+            alt="homepage"
+            class="dark-logo"
+          />
+          <!-- Light Logo text -->
+          <!-- <img src="assets/images/logo-light-text.png" class="light-logo" alt="homepage"> -->
+          <span>Writing Prompts</span>
+        </span>
+      </a>
+    </div>
+    <!-- ============================================================== -->
+    <!-- sidebar toggle -->
+    <!-- ============================================================== -->
+
+    <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span fxFlex></span>
+    <!-- ============================================================== -->
+    <!-- app header component - style you can find in header.scss / header.component.ts-->
+    <!-- ============================================================== -->
+    <app-header></app-header>
+  </mat-toolbar>
+  <!-- ============================================================== -->
+  <!-- End Topbar - style you can find in pages.scss -->
+  <!-- ============================================================== -->
+  <mat-sidenav-container
+    class="example-sidenav-container"
+    [style.marginTop.px]="mobileQuery.matches ? 0 : 0"
+  >
+    <!-- ============================================================== -->
+    <!-- Sidebar - style you can find in sidebar.scss -->
+    <!-- ============================================================== -->
+    <mat-sidenav
+      #snav
+      id="snav"
+      class="dark-sidebar pl-xs"
+      [mode]="mobileQuery.matches ? 'side' : 'over'"
+      fixedTopGap="0"
+      [opened]="mobileQuery.matches"
+      [disableClose]="mobileQuery.matches"
+      style="background-color: #ffffff;"
+    >
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+    <!-- ============================================================== -->
+    <!-- Sidebar - style you can find in sidebar.scss -->
+    <!-- ============================================================== -->
+
+    <!-- ============================================================== -->
+    <!-- Page container - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+    <mat-sidenav-content class="page-wrapper">
+      <div class="page-content">
+        <div class="container">
+          <div class="row">
+            <div
+              class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+              style="text-align: center;"
+            >
+              <br />
+              <br />
+              <br />
+              <span id="head1">Writing Prompts</span>
+              <p id="head2">Join our growing community!</p>
+              <p id="head3">
+                Submit your prompt and view prompts submitted by other writers!
+                Click the button to sign in!
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12-col-md-12 col-sm-12 col-xs-12">
+              <app-google-login></app-google-login>
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-lg-12-col-md-12 col-sm-12 col-xs-12">
+              <app-facebook-login></app-facebook-login>
+            </div>
+          </div>
+          <br />
+          <div class="row" style="text-align: center;">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <p style="margin-bottom: 90px;">
+                By signing in, you agree to our
+                <br />
+                <a
+                  routerLink="/privacy-and-policy"
+                  style="
+                    color: lightseagreen !important;
+                    text-decoration: none;
+                    font-weight: bold;
+                    text-transform: none;
+                  "
+                  >Privacy Policy</a
+                >
+                <br />
+                and
+                <br />
+                <a
+                  routerLink="/terms-and-conditions"
+                  style="
+                    color: lightseagreen !important;
+                    text-decoration: none;
+                    font-weight: bold;
+                    text-transform: none;
+                  "
+                  >Terms & Conditions</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-content>
+    <!-- ============================================================== -->
+    <!-- Page container - style you can find in pages.scss -->
+    <!-- ============================================================== -->
+  </mat-sidenav-container>
+</div>

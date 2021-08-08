@@ -1,0 +1,102 @@
+<div class="main-container">
+  <mat-toolbar color="primary" class="topbar telative">
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/">
+        <b>
+          <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo">
+          <img src="assets/images/brand-logo.png" alt="homepage" class="light-logo" style="height: 50px;">
+        </b>
+        <span fxShow="false" fxShow.gt-xs>
+          <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo">
+          <span>Writing Prompts</span>
+        </span> </a>
+    </div>
+    <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span fxFlex></span>
+    <app-header></app-header>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+    <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'"
+      fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches"
+      style="background-color: #ffffff">
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+    <mat-sidenav-content class="page-wrapper">
+      <div class="page-content">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card" style="padding:5px; border-radius:30px;">
+              <div class="card-body">
+                <p class="text-justify">
+                  Follow people and see their prompts here!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      
+      <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+        <div *ngIf="promptList">
+          <div *ngFor="let prompt of promptList" class="card"
+            style="background-color: #bdc5f8; border-radius:30px; margin-bottom: 20px; width: 99%;">
+            <div class="card" style="border-radius: 30px; padding:1%;">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <img *ngIf="!(this.userDetails.bookmarks && this.userDetails.bookmarks.hasOwnProperty(prompt.promptID))" src="assets/images/btn_save.png" class="rounded float-right" id="flag" alt="..."
+                  style="height:40px; width:40px; cursor: pointer; margin-right:-12px !important;" (click)="bookmarkPrompt(prompt)" />
+                <img *ngIf="(this.userDetails.bookmarks && this.userDetails.bookmarks.hasOwnProperty(prompt.promptID))" src="assets/images/bookmarked.png" class="rounded float-right" id="flag" alt="..."
+                  style="height:40px; width:40px; cursor: pointer; margin-right:-12px !important;" (click)="bookmarkPrompt(prompt)" />
+                <br />
+               <div class="namePicture" style="display: flex;">
+              <a routerLink="/user-profile" [queryParams]="{ id: prompt.userID }" style="display: flex;">
+                <img src="{{ prompt.userImageURL }}" alt="{{ prompt.userName }}" height="60px" width="60px" style="border-radius: 50%; margin-left:-13px; margin-top:-23px;"/> &nbsp; &nbsp;
+                <p style="color: #3f51b5; font-size: 14px !important; margin-top: -16px !important;">
+                  <span style="padding-right: 5px;">{{ prompt.userName }}</span>
+                  <br />
+                  <span> {{  prompt.time.time | date: "dd MMM yyyy" }} </span> 
+                </p>
+              </a>
+              
+            </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="card-body">
+                    <p class="text-justify">
+                      {{prompt.userPrompt}}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+               <div class="row no-gutters">
+                <div style="width: 33.33%;">
+                  <img [src]="prompt.likes && this.authDetails && prompt.likes.hasOwnProperty(this.authDetails.UUID) ? 'assets/images/liked.png' : 'assets/images/icn_favorite.png'" class="rounded float-left" alt="Like Prompt" height="40px" width="40px" (click)="promptLikeDislike(prompt)" />
+                  <p style="margin: 6px 0px 0px 43px; color: #3f51b5;">{{prompt.likesCount ? prompt.likesCount : 0}}</p>
+                </div>
+                <div style="width: 33.33%; text-align: center;">
+                  <a routerLink="/write-story" [queryParams]="{ id: prompt.promptID }" style="color: #3f51b5 !important;">Write Story</a>
+                </div>
+                <div style="width: 33.33%;">
+                  <img src="assets/images/share.png" class="rounded float-right" style="margin-right:2px; height:40px; width:40px;" alt="Share this prompt" />
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center; margin:1%">
+                <a routerLink="/story-list" [queryParams]="{ id: prompt.promptID }"
+                  style="color:#3f51b5 !important; font-weight: bold; text-transform: capitalize;">
+                  Read Stories({{prompt.storyList !== undefined ? prompt.storyList.length : 0}})>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

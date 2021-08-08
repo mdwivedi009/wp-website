@@ -1,0 +1,112 @@
+<div class="main-container">
+    <mat-toolbar color="primary" class="topbar telative">
+        <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/">
+                <b>
+                    <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                    <img src="assets/images/brand-logo.png" alt="homepage" class="light-logo" style="height: 50px" />
+                </b>
+                <span fxShow="false" fxShow.gt-xs>
+                    <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                    <span>Writing Prompts</span>
+                </span>
+            </a>
+        </div>
+        <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span fxFlex></span>
+        <app-header></app-header>
+    </mat-toolbar>
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+        <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'"
+            fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches"
+            style="background-color: #ffffff">
+            <app-sidebar></app-sidebar>
+        </mat-sidenav>
+        <mat-sidenav-content class="page-wrapper">
+            <div class="page-content">
+                <div class="card text-white" id="cardtext" style="width:100%">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="card-body">
+                            <p id="replyto" style="font-size: 22px;">Replies to {{commentSet !== undefined ? commentSet.userName : '' }}</p>
+                            <p id="replytomobile">Replies to {{commentSet !== undefined ? commentSet.userName : ''}} </p>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="card" style="border-radius:20px; padding:1%; height: 150px; width: 95%; margin-left: 2.5%; margin-top: -40px;">
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-lg-7 col-sm-7 col-md-7 col-xs-7">
+                                <img *ngIf="commentSet" src="{{commentSet.userImageURL}}" alt="" class="float-left" width="50px"
+                                    height="50px" style="border-radius:50%; margin-left:13px;"> &nbsp;&nbsp;
+                                <p style="font-size:12px; margin-top:-10px; margin-left:80px;">{{commentSet.userName}}
+                                </p>
+                            </div>
+                            <div class="col-lg-5 col-sm-5 col-md-5 col-xs-5">
+                                <p class="float-right" id="date" style="margin-top:10px;">
+                                    {{-1 * commentSet.time.time | date: "dd MMM yyyy"}}</p>
+                                <p id="date-m">{{-1 * commentSet.time.time | date: "dd MMM yyyy"}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div
+                                class="col-lg-11 offset-lg-1 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-xs-10 col-xs-offset-2" style="margin-left: 10px;">
+                                <p id="laptop">{{commentSet.cText}}</p>
+                                <p id="mobile">{{commentSet.cText}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br> 
+                <div *ngIf="snav.opened || snav.mode=='over' ">
+                    <div class="footer" style="bottom:0; position:fixed; width:100%">
+                      <div class="editable" contenteditable id="editMe" (input)="handleReply($event)"  placeholder="Write a short comment.." oninput="if(this.innerHTML.trim()==='<br>')this.innerHTML=''"
+                      style="border-radius:200px;border: 2px solid lightgray;height:55px;padding: 12px; overflow:hidden;background-color: white;">
+                      </div>
+                      <div class="send">
+                        <img src="assets/images/send.png" class="float-right" alt="" (click)="sendReply()"
+                          style="margin-top:-39px; margin-right:21px; cursor: pointer !important;" />
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                          <ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+                          </ngx-spinner>
+                        </div>
+                      </div>
+                    </div>  
+        
+                    <div class="footermobile" style="bottom:0; position:fixed;">
+                      <div class="editable" contenteditable id="editMe" (input)="handleReply($event)"  placeholder="Write a short comment.." oninput="if(this.innerHTML.trim()==='<br>')this.innerHTML=''"
+                      style="border-radius:200px;border: 2px solid lightgray;height:55px;padding: 12px; overflow:hidden;background-color: white;">
+                      </div>
+                      <div class="send">
+                        <img src="assets/images/send.png" class="float-right" alt="" (click)="sendReply()"
+                          style="margin-top:-39px; margin-right:21px; cursor: pointer !important;" />
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                          <ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+                          </ngx-spinner>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+        
+                  <div *ngIf="!(snav.opened || snav.mode=='over')">
+                    <div class="footermobileclose" style="bottom:0; position:fixed;">
+                      <div class="editable" contenteditable id="editMe" (input)="handleReply($event)"  placeholder="Write a short comment.." oninput="if(this.innerHTML.trim()==='<br>')this.innerHTML=''"
+                      style="border-radius:200px;border: 2px solid lightgray;height:55px;padding: 12px; overflow:hidden;background-color: white;">
+                      </div>
+                      <div class="send">
+                        <img src="assets/images/send.png" class="float-right" alt="" (click)="sendReply()"
+                          style="margin-top:-39px; margin-right:21px; cursor: pointer !important;" />
+                        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                          <ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+                          </ngx-spinner>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                <br>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

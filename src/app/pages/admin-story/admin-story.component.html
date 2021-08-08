@@ -1,0 +1,336 @@
+<div class="main-container">
+  <mat-toolbar color="primary" class="topbar telative">
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/">
+        <b>
+          <img
+            src="assets/images/logo-icon.png"
+            alt="homepage"
+            class="dark-logo"
+          />
+          <img
+            src="assets/images/brand-logo.png"
+            alt="homepage"
+            class="light-logo"
+            style="height: 50px"
+          />
+        </b>
+        <span fxShow="false" fxShow.gt-xs>
+          <img
+            src="assets/images/logo-text.png"
+            alt="homepage"
+            class="dark-logo"
+          />
+          <span>Writing Prompts</span>
+        </span>
+      </a>
+    </div>
+    <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span fxFlex></span>
+    <app-header></app-header>
+  </mat-toolbar>
+  <mat-sidenav-container
+    class="example-sidenav-container"
+    [style.marginTop.px]="mobileQuery.matches ? 0 : 0"
+  >
+    <mat-sidenav
+      #snav
+      id="snav"
+      class="dark-sidebar pl-xs"
+      [mode]="mobileQuery.matches ? 'side' : 'over'"
+      fixedTopGap="0"
+      [opened]="mobileQuery.matches"
+      [disableClose]="mobileQuery.matches"
+      style="background-color: #ffffff"
+    >
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+    <mat-sidenav-content class="page-wrapper">
+      <div class="container">
+        <br />
+        <br />
+        <button
+        *ngIf="this.customPromptSet && this.base!=0"
+        type="button"
+        class="btn btn-outline-primary"
+        (click)="handlePrevious()"
+      >
+        Previous 
+      </button>
+    &nbsp;
+    <button
+    *ngIf="this.customPromptSet && this.base!=this.customPromptSet.length-1"
+    type="button"
+    class="btn btn-outline-primary"
+    style="width: 94px;"
+    (click)="handleNext()"
+  >
+    Next
+  </button>
+  <button
+  *ngIf="this.customPromptSet && this.base!=this.customPromptSet"
+  type="button"
+  class="btn btn-outline-primary float-right"
+  style="width: 100px; margin-right:22px;"
+  (click)="sendMailUser()"
+>
+  send Mail
+</button>
+          <br />
+          <br />
+          <div *ngIf="storySet">
+       <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12" *ngFor="let story of pPromptSet">
+          <div class="card" >
+            <div class="card-body">
+              <div class="row">
+                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                  <a routerLink="/user-profile"[queryParams]="{id: story.userID}">
+                  <img
+                    src="{{ story.userImageURL }}"
+                    class="float-left"
+                    height="60px"
+                    width="60px"
+                    style="margin-left:5px; cursor: pointer;"
+                    alt="{{ story.userName }}"
+                    id="profile-image"
+                  /></a>
+                  <a routerLink="/user-profile" [queryParams]="{ id: story.userID }" style="display: flex;">
+                  <p style="margin-left: 14px; margin-top: 14px; color:black; text-transform:capitalize">
+                    {{ story.userName }}
+                  </p>
+                  </a>
+                  <!-- <p
+                    style="
+                      font-size: 12px;
+                      margin-top: -17px;
+                      margin-left: 105px;
+                    "
+                  >
+                    mdwivedi009@gmail.com
+                  </p> -->
+                  <button
+                    class="float-right btn btn-outline-primary"
+                    type="button"
+                    id="rejectprompt"
+                    style="margin-top: -40px; cursor:pointer;"
+                    data-toggle="modal"
+                    (click)="openRejectStory(contentreject, story)"
+                    >Reject story</button
+                  >
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                  <div class="card-body">
+                <p class="text-justify">
+                {{ story.stSnip }}
+              </p> 
+                  </div>
+                </div>
+              </div>
+               
+              <br /><br />
+              <div class="row">
+                <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                  <p id="hour" style="margin-left:10px;">{{ -1 * story.time.time | date: "dd MMM yyyy" }}</p>
+                </div>
+                <!-- <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                  <button type="button" class="btn btn-outline-primary" id="edit" data-toggle="modal" style="cursor: pointer;"
+                  (click)="open(contentedit)">Edit Prompt</button>
+                </div> -->
+                <div class="col-lg-4 offset-lg-4 col-sm-4 offset-sm-4 col-md-4 offset-md-4 col-xs-4 offset-xs-4" >
+                  <button id="accept" class="btn btn-outline-primary" type="button"  data-toggle="modal" style="cursor: pointer;"
+                  (click)="openAcceptStory(contentaccept, story)" >Accept story</button>
+                  <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                    <p id="hourmobile">{{ -1 * story.time.time | date: "dd MMM yyyy" }}</p>
+                  </div>
+                  <!-- <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                    <button id="editmobile" class="btn btn-outline-primary" type="button" data-toggle="modal" style="cursor: pointer;"
+                    (click)="open(contentedit)">Edit Prompt</button>
+                  </div> -->
+                  <div class="col-lg-4 offset-lg-4 col-sm-4 offset-sm-4 col-md-4 offset-md-4 col-xs-4 offset-xs-4">
+                    <button id="acceptmobile" class="btn btn-outline-primary " type="button" data-toggle="modal" style="cursor: pointer; "
+                    (click)="openAcceptStory(contentaccept,story)" >Accept story</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br /><br />
+          <!-- <p style="margin-left: 24px">Message:</p> -->
+          <!-- <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+                    <img
+                      src="assets/images/img4.jpg"
+                      class="float-left"
+                      height="80px"
+                      width="80px"
+                      alt="Profile Image"
+                      id="profile-image"
+                    />
+
+                    <p style="margin-left: 92px; margin-top: 13px">
+                      Manish Dwivedi
+                    </p>
+                    <p
+                      style="
+                        font-size: 12px;
+                        margin-top: -17px;
+                        margin-left: 105px;
+                      "
+                    >
+                      mdwivedi009@gmail.com
+                    </p>
+                    <p
+                      class="float-right"
+                      id="reject"
+                      style="margin-top: -50px"
+                    >
+                      Reject prompt
+                    </p>
+                  </div>
+                </div>
+                <p class="text-justify">
+                  Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium
+                  purus sit amet fermentum. Donec sed odio operae, eu vulputate
+                  felis rhoncus. Praeterea iter est quasdam res quas ex communi
+                </p>
+                <br /><br />
+                <div class="row">
+                  <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4">
+                    <img
+                      src="assets/images/send1.png"
+                      alt=""
+                      height="50px"
+                      width="50px"
+                      class="float-left"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div> -->
+        <br />
+        <br />
+        </div>
+      </div> 
+      </div>       
+       </mat-sidenav-content>
+      </mat-sidenav-container>
+</div>
+
+<ng-template #contentreject let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Reject Story</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div id="rules">
+      <b>Are you sure want you want to delete story? </b><br>
+      <ul>
+        <li (click)=rejectStory() style="cursor: pointer;">YES NUKE IT!!</li><br>
+        <li (click)=dontRejectStory() style="cursor: pointer;">NO.STOP.DONT DELETE IT. </li>
+      </ul>
+    </div>
+  </div>
+</ng-template>
+<ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+</ngx-spinner> 
+<ng-template #contentedit let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Edit Prompt</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div id="rules">
+      <b>Are you sure want you want to Edit prompt? </b><br>
+        <div class="card">
+      <div class="card">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card-body">
+            <p class="text-justify">
+              Ambitioni dedisse scripsisse iudicaretur. Cras mattis iudicium
+              purus sit amet fermentum. Donec sed odio operae, eu vulputate
+              felis rhoncus. Praeterea iter est quasdam res quas ex communi. At
+              nos hinc posthac, sitientis piros Afros. Petierunt uti sibi
+              concilium totius Galliae in diem certam indicere. Cras mattis
+              iudicium purus sit amet fermentum.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <button
+    type="button"
+    id="editprompt"
+    class="btn btn-outline-primary"
+    style="
+     background-color: #3f51b5;
+      color: white;
+      border-radius: 10%;
+    "
+  >
+    DISCARD EDIT
+  </button>
+  <button
+  type="button"
+  class="btn btn-outline-primary"
+  style="
+   background-color: #3f51b5;
+    color: white;
+    border-radius: 10%;
+  "
+>
+  DONE EDITING!
+</button>
+  </div>
+  </div>
+</ng-template>
+<ng-template #contentaccept let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Approve Story</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div id="rules">
+      <b>Are you sure want you want to approve story? </b><br>
+      <ul>
+        <li style="cursor: pointer;" (click)=acceptStory()>YES APPROVE IT!!</li><br>
+        <li style="cursor: pointer;" (click)=dontAcceptStory()>NO.WAIT.DONT APPROVE IT! </li>
+      </ul>
+    </div>
+    
+  </div>
+</ng-template>
+<ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+</ngx-spinner>
+

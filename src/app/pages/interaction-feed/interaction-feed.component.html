@@ -1,0 +1,81 @@
+<div class="main-container">
+    <mat-toolbar color="primary" class="topbar telative">
+        <div class="navbar-header">
+            <a class="navbar-brand" routerLink="/">
+                <b>
+                    <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo">
+                    <img src="assets/images/brand-logo.png" alt="homepage" class="light-logo" style="height: 50px;">
+                </b>
+                <span fxShow="false" fxShow.gt-xs>
+                    <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo">
+                    <span>Writing Prompts</span>
+                </span> </a>
+        </div>
+        <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+            <mat-icon>menu</mat-icon>
+        </button>
+        <span fxFlex></span>
+        <app-header></app-header>
+    </mat-toolbar>
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+        <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'"
+            fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches"
+            style="background-color: #ffffff">
+            <app-sidebar></app-sidebar>
+        </mat-sidenav>
+        <mat-sidenav-content class="page-wrapper">
+            <div class="page-content">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <span class="float-left" style="padding:2%;margin-left:41px;">Interactions :</span>
+                        <div id="clear">
+                            <span class="float-right" style="padding:2%;margin-right:130px;">Clear All</span>
+                            <img src="assets/images/clear.png" alt="" class="float-right" (click)="hideNotification()"
+                                style="margin-right:-116px; margin-top:23px; cursor: pointer;">
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="finalDataSet">
+                <div class="row" *ngFor="let notification of finalDataSet" style="margin-bottom: 10px;">
+                    <div class="col-lg-12  col-md-12 col-sm-12 col-xs-12">
+                        <div class="card" style="border-radius:20px; padding:5px;">
+                            <div class="body" style="padding: 5px 0px 0px 5px;">
+                                <a routerLink="/user-profile" [queryParams]="{ id: notification.userID }">
+                                    <img src="{{notification.userImageURL}}" alt="" height="50px" width="50px" style="border-radius: 50%; margin-right: 1%;" />
+                                    <span style="color: #3f51b5;">{{notification.userName}}</span>
+                                </a>
+                                &nbsp;
+                                <span *ngIf="notification.type == 'follow'" style="margin-left:-6px; margin-top:-9px;">
+                                    Started following you
+                                </span>
+                                <span routerLink="/see-replies" [queryParams]="{ id: notification.commentID }" *ngIf="notification.type == 'commentReply'" style="margin-left:-6px; margin-top:-9px; cursor: pointer;">
+                                    Replied on your comment
+                                </span>
+                                <span routerLink="/comment" [queryParams]="{ storyID: notification.storyID }" *ngIf="notification.type == 'storyComment'" style="margin-left:-6px; margin-top:-9px; cursor: pointer;">
+                                    Commented on your story
+                                </span>
+                                <span routerLink="/read-story" [queryParams]="{ storyID: notification.storyID }" *ngIf="notification.type == 'storyLike'" style="margin-left:-6px; margin-top:-9px; cursor: pointer;">
+                                    Liked your story
+                                </span>
+                                <span *ngIf="notification.type == 'promptLike'" style="margin-left:-6px; margin-top:-9px;">
+                                    Liked your prompt
+                                </span>
+                                <div id="hours">
+                                    <p style="font-size:12px;color: #3f51b5;margin-left:55px;margin-top:-12px;">
+                                        {{notification.time | date: "dd MMM yyyy"}}
+                                    </p>
+                                </div>
+                                <div id="hour">
+                                    <p style="font-size:11px;color: #3f51b5;margin-left:55px;"> 
+                                        {{notification.time | date: "dd MMM yyyy"}}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

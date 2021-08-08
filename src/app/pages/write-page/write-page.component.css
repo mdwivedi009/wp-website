@@ -1,0 +1,20 @@
+.btn-outline-primary {
+    border-radius: 20px !important;
+    border: 1px solid white;
+    color:white;
+    background-color: #3f51b5;
+    
+    margin-top: 18px;
+    
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: #3f51b5;
+    color: white;
+  }
+  
+#text{
+  @media screen and (max-width:700px) {
+   margin-right:0px; 
+  }
+  }

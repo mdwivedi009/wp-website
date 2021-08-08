@@ -1,0 +1,592 @@
+<div class="container">
+  <!-- genre button slider start -->
+  <div class="row" id="desktop-button">
+    <div class="col-lg-1 col-sm-1 col-md-1 col-xs-1">
+      <button
+        class="btn btn-outline-primary"
+        (click)="leftclick()"
+        id="slideLeft"
+        type="button"
+      >
+        <
+      </button>
+    </div>
+       <div class="col-lg-10 col-sm-10 col-md-10 col-xs-10">
+      <div id="container">
+        <div id="content" class="btn-group">
+          <button
+          id="highlight"
+            style="margin-right: 10px;"
+            *ngFor="let button of sliderButton"
+            (click)="myFunction(button)"
+            type="button"
+            class="btn btn-outline-light focus {{button === filterGenre ?  ' clicked' : ' notClicked' }}"
+          >
+            {{ button }}
+          </button>
+          
+          &nbsp;
+          &nbsp;
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1">
+      <button
+        class="btn btn-outline-primary"
+        (click)="rightclick()"
+        id="slideRight"
+        type="button"
+      >
+        >
+      </button>
+    </div>
+  </div>
+ 
+  <!-- mobile version slider start -->
+  <div class="mobile-button" style="display: none">
+    <div class="col-xs-12 col-sm-12 col-md-12">
+      <div id="container">
+        <div id="content" class="btn-group">
+          <button
+            *ngFor="let button of sliderButton"
+            (click)="myFunction(button)"
+            type="button"
+            class="btn btn-outline-primary"
+          >
+            {{ button }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <!-- mobile version slider end -->
+  <!-- genre button slider end -->
+  <br />
+ 
+  <!-- submit prompt text area start -->
+  <div class="row">
+    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+      <div class="card" style="width: 100%; height: 280px; ">
+        <div class="card-body">
+          <p
+            *ngIf="!authDetails"
+            class="hello1"
+            style="font-size: 21px; color: #3f51b5"
+          >
+            Hello Guest
+          </p>
+          <p
+            *ngIf="!authDetails"
+            id="hello1"
+            style="font-size: 21px; color: #3f51b5"
+          >
+            Hello Guest
+          </p>
+          <p
+            *ngIf="authDetails"
+            class="profile"
+            style="font-size: 21px; color: #3f51b5; text-transform: capitalize"
+          >
+            Hello
+            {{
+              authDetails.name
+                ? authDetails.name.split(' ')[0]
+                : authDetails.first_name
+            }}
+          </p>
+
+          <img
+            *ngIf="!authDetails"
+            src="/assets/images/logo.png"
+            class="image1"
+            height="80px"
+            width="80px"
+            style="margin-top: -18%"
+          />
+          <a routerLink="/profile">
+          <img
+            *ngIf="authDetails"
+            src="{{ profilePic }}"
+            class="image"
+            height="80px"
+            width="80px"
+            style="margin-top: -18%; border-radius: 50%"
+          />
+        </a>
+          <img
+            *ngIf="!authDetails"
+            src="/assets/images/logo.png"
+            id="image1"
+            height="80px"
+            width="80px"
+            style="margin-top: -18%"
+          />
+          <a routerLink="/profile">
+          <img
+            *ngIf="authDetails"
+            src="{{ profilePic }}"
+            id="image"
+            height="80px"
+            width="80px"
+            style="border-radius: 50%"
+          />
+        </a>   
+          <textarea
+            placeholder="Submit prompt here..."
+            type="text"
+            name="string"
+            id="area"
+            style="
+              border-radius: 10px;
+              margin: 14px;
+              margin-bottom: 2%;
+              height: 135px;
+              width: 79%;
+              padding: 1%;
+              border: 1px solid blue;
+            "
+            data-toggle="modal"
+            (click)="open(content)"
+            (input)="handlePromptString($event)"
+          ></textarea>
+
+          <textarea
+            placeholder="Submit prompt here..."
+            type="text"
+            name="string"
+            id="areamobile"
+            style="
+              border-radius: 10px;
+              margin: 14px;
+              margin-top: -19px;
+              margin-left: 27px;
+              height: 135px;
+              width: 79%;
+              padding: 2%;
+              border: 1px solid blue;
+            "
+            data-toggle="modal"
+            (click)="open(content)"
+            (input)="handlePromptString($event)"
+          ></textarea>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              id="submit"
+              style="
+                float: right;
+                background-color: #3f51b5;
+                color: white;
+                border-radius: 10%;
+                margin-right: 147px;
+                margin-bottom: 10px;
+              "
+              data-toggle="modal"
+              (click)="open(content)"
+            >
+              Submit
+            </button>
+            <button
+              type="button"
+              class="btn btn-outline-primary"
+              id="submit1"
+              style="
+                float: right;
+                background-color: #3f51b5;
+                color: white;
+                border-radius: 10%;
+              "
+              data-toggle="modal"
+              (click)="open(content)"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <br />
+  <div class="row" *ngIf="filterGenre == ''">
+    <div
+      class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+      style="text-align: center"
+    >
+      <span>Sort by:</span> &nbsp;
+      <select class="option" style="border-radius: 10px" name="subject" (change)="sortPrompts($event)">
+        <option disabled="disabled" selected="selected">Most Recent</option>
+        <option value="recent">Most Recent</option>
+        <option value="likes">Most Upvoted</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- submit prompt text area end -->
+
+  <!-- modal one with rules start -->
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Submit Your Prompt</h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div id="rules">
+        <b>Rules</b>
+        <ul>
+          <li>- Please write the prompt in English and add genres.</li>
+          <li>- No gore explicit content!</li>
+          <li>- Keep it short and keep it interesting!:)</li>
+        </ul>
+      </div>
+
+      <textarea
+        name="prompt"
+        id="prompt"
+        cols="63"
+        rows="10"
+        style="border: 2px solid #3f51b5; border-radius: 10px; width: 100%"
+        (input)="handlePromptString($event)"
+      ></textarea>
+      <small style="float: right" id="240">{{ stringLength }}/240</small><br />
+      <p id="selectedgenre" style="color: #3f51b5">
+        Selected Genre: {{ selectedGenre.join(", ") }}
+      </p>
+      <textarea
+        name="prompt"
+        id="promptmobile"
+        cols="37"
+        rows="6 "
+        style="border: 2px solid #3f51b5; border-radius: 10px; width: 100%"
+        (input)="handlePromptString($event)"
+      ></textarea>
+      <p id="selectedgenremobile" style="color: #3f51b5">
+        Selected Genre: {{ selectedGenre.join(", ") }}
+      </p>
+      <div>
+        &nbsp;
+
+        <button
+          type="button"
+          data-toggle="modal"
+          class="btn btn-outline-primary"
+          style="float: right; background-color: #3f51b5; color: white"
+          (click)="open(contentThree)"
+        >
+          submit
+        </button>
+        &nbsp;
+        <button
+          type="button"
+          class="btn btn-light"
+          data-toggle="modal"
+          data-target="#selectgenre"
+          style="
+            background-color: #e2e6ea;
+            float: right;
+            margin-right: 5px;
+            border-radius: 20px;
+          "
+          (click)="open(contentTwo)"
+        >
+          Select Genre
+        </button>
+        &nbsp;
+      </div>
+    </div>
+  </ng-template>
+  <!-- modal one with rules end -->
+
+  <!-- modal two with rules start -->
+  <ng-template #contentTwo let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Select Genre</h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div>
+        <input
+          type="checkbox"
+          value="Tragedy"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp; &nbsp; Tragedy
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="Fantasy"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Fantasy
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="Adventure"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Adventure
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="Science fiction"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Science fiction
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="Mythology"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Mythology
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="Mystery"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Mystery
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="Drama"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Drama
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="Romance"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Romance
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="Action"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Action
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="Satire"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Satire
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="Horror"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Horror
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="Tragic comedy"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Tragic comedy
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="Young Adult"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Young Adult
+      </div> 
+      <div>
+        <input
+          type="checkbox"
+          value="Dystopia"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Dystopia
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          value="Thriller"
+          (change)="selectgenre($event)"
+          (checked)="(checked)"
+        />
+        &nbsp;&nbsp; Thriller
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-outline-primary"
+        (click)="modal.close('Save click')"
+      >
+        DONE!
+      </button>
+    </div>
+  </ng-template>
+  <!-- modal two with rules end -->
+
+  <!-- modal three start -->
+  <ng-template #contentThree let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Confirm submit prompt</h4>
+    </div>
+    <div class="modal-body">
+      Have you checked prompt for any grammatical errors and have you added genres to the prompt?
+    </div>
+    <div type="button" style="text-align:right;margin-right: 5%;;margin-bottom: 5%;" (click)="confirmSubmit(submitMore)">
+      YES, SUBMIT THE PROMPT.
+    </div>   
+    <div type="button" style="text-align:right;margin-right: 5%;margin-bottom: 5%;" (click)="modal.dismiss('Cross click')">
+      NO, LET ME CHECK AGAIN.
+    </div>
+  </ng-template>
+  <!-- modal three end -->
+
+  <!-- modal four start -->
+    <ng-template #submitMore let-modal>
+      <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Prompt Submitted Successfully!</h4>
+        <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.dismiss('Cross click')"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      </div>
+      <div class="modal-body">
+        Your Prompt will be reviewed by our moderators within 24 hrs. It will show up in the prompts feed after getting reviewed. Stay Tuned! :)
+      </div>
+      <button
+          type="button"
+          data-toggle="modal"
+          class="btn btn-outline-primary"
+          style="margin-left:60%;margin-bottom:5% ; background-color: #3f51b5; color: white;width:fit-content;"
+          (click)="submitOneMore(content)"
+        >
+          Submit one more?
+        </button>
+    </ng-template>
+    <!-- modal four end -->
+  <br />
+  
+  <div id="card-parent" (scroll)="scrolling($event)">
+    <div class="card" style="background-color: #bdc5f8; margin-bottom: 25px !important" *ngFor="let prompt of promptSet">
+      <div class="card" style="padding: 10px;">
+        <div class="row no-gutters">
+          <div style="width: 80%;">
+            <div class="namePicture" style="display: flex;">
+              <a routerLink="/user-profile" [queryParams]="{ id: prompt.userID }" style="display: flex;">
+                <img src="{{ prompt.userImageURL }}" alt="{{ prompt.userName }}" height="60px" width="60px" style="border-radius: 50%;"/> &nbsp; &nbsp;
+                <p style="color: #3f51b5; font-size: 14px !important; margin-top: 10px !important;font-weight: bold;">
+                  <span style="padding-right: 5px;">{{ prompt.userName }}</span>
+                  <br />
+                  <span style="font-weight: 400;"> {{ -1 * prompt.time.time | date: "dd MMM yyyy" }} </span> 
+                </p>
+              </a>
+              <img *ngIf="(this.authDetails && (this.authDetails.UUID!==prompt.userID))" [src]="this.authDetails && this.authDetails.userSet && this.authDetails.userSet.following && this.authDetails.userSet.following.hasOwnProperty(prompt.userID) ? 'assets/images/tick.png' : 'assets/images/add.png'" alt="Follow" height="24px" width="24px" style="margin-top: 10px;" (click)="userFollowUnfollow(prompt)" />
+            </div>
+          </div>
+          <div style="width: 20%;">
+            <img [src]="this.authDetails && this.authDetails.userSet && this.authDetails.userSet.bookmarks && this.authDetails.userSet.bookmarks.hasOwnProperty(prompt.promptID) ? 'assets/images/bookmarked.png' : 'assets/images/btn_save.png' " class="rounded float-right" alt="Bookmark this prompt" (click)="bookmarkPrompt(prompt)" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card-body">
+              <p class="text-justify"> {{ prompt.userPrompt }} </p>
+            </div>
+          </div>
+        </div>
+        <div class="row no-gutters">
+          <div style="width: 33.33%;">
+            <img [src]="prompt.likes && this.authDetails && prompt.likes.hasOwnProperty(this.authDetails.UUID) ? 'assets/images/liked.png' : 'assets/images/icn_favorite.png'" class="rounded float-left" alt="Like Prompt" height="40px" width="40px" (click)="promptLikeDislike(prompt)" />
+            <p style="margin: 6px 0px 0px 44px; color: #3f51b5;">{{prompt.likesCount}}</p>
+          </div>
+          <div style="width: 33.33%; text-align: center;">
+            <a routerLink="/write-story" [queryParams]="{ id: prompt.promptID }" style="color: #3f51b5 !important;">Write Story</a>
+          </div>
+          <div style="width: 33.33%;">
+            <img src="assets/images/share.png" class="rounded float-right" alt="Share this prompt" (click)="sharePrompt(prompt, contentFour)"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center; padding: 3px 0px 3px 0px;">
+          <a routerLink="/story-list" [queryParams]="{ id: prompt.promptID }" style="color: black !important">Read Stories ({{prompt.storyList !== undefined ? prompt.storyList.length : 0}})></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ng-template #contentFour let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Share this prompt</h4>
+    </div>
+    <div class="modal-body">
+      <a href="{{facebookLink}}" target="_blank" class="share-btn facebook-btn" style="color: #3b5998 !important;">
+        <i class="fab fa-facebook"></i>
+      </a>
+      <a href="{{whatsappLink}}" target="_blank" class="share-btn whatsapp-btn" style="color: #128c7e !important;">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+      <a href="{{twitterLink}}" target="_blank" class="share-btn twitter-btn" style="color: #1da1f2 !important;">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="{{linkedinLink}}" target="_blank" class="share-btn linkedin-btn" style="color: #0077b5 !important;">
+        <i class="fab fa-linkedin"></i>
+      </a>
+      <a class="share-btn copy-btn" style="color: darkblue !important;cursor: pointer;">
+        <i class="far fa-copy" (click)="copyPromptLink()"></i><span style="margin-left: 15px;font-size: 12px;font-style: italic;color: darkgreen;">{{linkCopied}}</span>
+      </a>
+    </div>
+  </ng-template>
+
+
+</div>

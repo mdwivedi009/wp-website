@@ -1,0 +1,50 @@
+<!-- ============================================================== -->
+<!-- Profile - style you can find in header.scss -->
+<!-- ============================================================== -->
+<a class="m-r-20 hidden-sm-up mobile-nav1" routerLink="/"
+  >Prompts Feed <span class="sr-only">(current)</span></a
+>
+<a
+  class="m-r-20 hidden-sm-up mobile-nav1"
+  routerLink="/follow-feed"
+  *ngIf="authToken"
+  >Follow Feed</a
+>
+<a
+  class="m-r-20 hidden-sm-up mobile-nav1"
+  routerLink="/interaction-feed"
+  *ngIf="authToken"
+  >Interaction Feed</a
+>
+<a class="m-r-20 hidden-sm-up mobile-nav1" routerLink="/stories-feed"
+  >Stories Feed</a
+>
+<a
+  class="m-r-20 hidden-sm-up mobile-nav1"
+  routerLink="/login"
+  routerLinkActive="active"
+  *ngIf="!authToken"
+  >Login</a
+>
+<button
+  [matMenuTriggerFor]="profile"
+  mat-icon-button
+  class="m-r-5"
+  *ngIf="authToken"
+>
+  <img *ngIf="authDetails"
+    src="{{
+      profilePic !== '' ? authDetails.picture.data.url : authDetails.picture
+    }}"
+    alt="user"
+    class="profile-pic"
+  />
+</button>
+<mat-menu #profile="matMenu" class="mymegamenu">
+  <button mat-menu-item routerLink="/profile">
+    <mat-icon>account_box</mat-icon> Profile
+  </button>
+  <button mat-menu-item (click)="authService.SignOut()">
+    <mat-icon>exit_to_app</mat-icon> Sign Out
+  </button>
+</mat-menu>

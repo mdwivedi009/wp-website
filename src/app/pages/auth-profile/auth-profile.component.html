@@ -1,0 +1,811 @@
+<div class="main-container">
+  <mat-toolbar color="primary" class="topbar telative">
+    <div class="navbar-header">
+      <a class="navbar-brand" routerLink="/">
+        <b>
+          <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+          <img src="assets/images/brand-logo.png" alt="homepage" class="light-logo" style="height: 50px" />
+        </b>
+        <span fxShow="false" fxShow.gt-xs>
+          <img src="assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+          <span>Writing Prompts</span>
+        </span>
+      </a>
+    </div>
+    <button mat-icon-button (click)="snav.toggle()" value="sidebarclosed">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <span fxFlex></span>
+    <app-header></app-header>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 0 : 0">
+    <mat-sidenav #snav id="snav" class="dark-sidebar pl-xs" [mode]="mobileQuery.matches ? 'side' : 'over'"
+      fixedTopGap="0" [opened]="mobileQuery.matches" [disableClose]="mobileQuery.matches"
+      style="background-color: #ffffff">
+      <app-sidebar></app-sidebar>
+    </mat-sidenav>
+    <mat-sidenav-content class="page-wrapper">
+      <div class="page-content">
+        <div class="container">
+          <br />
+          <div class="card text-white" id="cardtext" style="width: 80%">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="card-body">
+                <button type="button" class="btn btn-primary float-right" id="edit" (click)="open(content)">
+                  <img src="/assets/images/edit.png" height="20px" />
+                  Edit
+                </button>
+                <button type="button" class="btn btn-primary float-right" id="editmobile" (click)="open(content)">
+                  <img src="/assets/images/edit.png" height="20px" />
+                  Edit
+                </button>
+                <img src="{{
+                  profilePic !== ''
+                    ? authDetails.picture.data.url
+                    : authDetails.picture
+                }}" class="float-left" height="80px" width="80px" alt="Profile Image" id="profile-image" />
+                <img src="{{
+                  profilePic !== ''
+                    ? authDetails.picture.data.url
+                    : authDetails.picture
+                }}" class="float-left" height="80px" width="80px" alt="Profile Image" id="profile-imagemobile" />
+                <div class="row">
+                  <h5 id="auth-name" style="margin-left:3%; font-size:18px;">{{userDetails.userName}}</h5>
+                  <h5 id="auth-namemobile">{{userDetails.userName}}</h5>
+                </div>
+                <div class="row">
+                  <div class="col-lg-2 col-md-12 col-sm-12 col-xs 12">
+                    <p (click)="openFollowList(contentFour,'followers')" id="Followers" style="text-align: center;margin-left:-18px; cursor: pointer;">
+                      {{followers}}<br />
+                      Followers
+                    </p>
+                  </div>
+                  <div class="col-lg-2 col-md-12 col-sm-12 col-xs 12">
+                    <p (click)="openFollowList(contentFour,'following')" id="Following" style="text-align: center;margin-left:-55px; cursor: pointer;">
+                      {{following}}<br />
+                      Following
+                    </p>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-2 col-md-12 col-sm-12 col-xs 12">
+                    <p (click)="openFollowList(contentFour,'followers')" id="Followersmobile" style="text-align: center;cursor: pointer;">
+                      {{followers}}<br />
+                      Followers
+                    </p>
+                  </div>
+                  <div class="col-lg-2 col-md-12 col-sm-12 col-xs 12">
+                    <p (click)="openFollowList(contentFour,'following')" id="Followingmobile" style="text-align: center; cursor: pointer;">
+                      {{following}}<br />
+                      Following
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-right: 20px; margin: 1%">
+              <button (click)="clicked('prompts')" type="button"
+                class="btn btn-outline-primary {{buttonType == 'prompts' ? 'active' : ''}}">
+                Prompts
+              </button>
+              <button (click)="clicked('stories')" type="button"
+                class="btn btn-outline-primary {{buttonType == 'stories' ? 'active' : ''}}">
+                Stories
+              </button>
+              <button (click)="clicked('bookmarks')" type="button"
+                class="btn btn-outline-primary {{buttonType == 'bookmarks' ? 'active' : ''}}">
+                Bookmarks
+              </button>
+              <button (click)="clicked('likes')" type="button"
+                class="btn btn-outline-primary {{buttonType == 'likes' ? 'active' : ''}}">
+                Likes
+              </button>
+            </div>
+          </div>
+          <ng-template #contentfollowers let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Followers</h4>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div id="rules">
+               --
+              </div>
+            </div>
+          </ng-template>
+         
+          <ng-template #contentfollowing let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Following</h4>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div id="rules">
+                --
+              </div>
+            </div>
+          </ng-template>
+
+
+          <!-- modal to display genres start here -->
+          <ng-template #contentTwo let-modal>
+            <div class="modal-body">
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')">
+              <span aria-hidden="true">&times;</span>
+            </button>
+              <div class="row" style="display:flex">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                <button type="button" class="btn btn-outline-primary" *ngFor="let genre of tempPromptGenres">
+               {{genre}}
+              </button>
+            </div>
+              </div>
+            </div>
+            <div *ngIf="this.promptUserId == this.authDetails.UUID" class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                (click)="open(contentThree)"
+              >
+               Edit Genres
+              </button>
+            </div>
+          </ng-template>
+          <!-- modal to display genres end here -->     
+
+          <!-- modal to display followers and following start here -->
+          <ng-template #contentFour let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title" style="text-transform: capitalize;">
+                {{this.usersType}} </h4>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row" style="padding-left: 20px !important;" *ngFor="let user of followList" >
+                <div *ngIf="user.userName" style="display:flex;margin-bottom: 10px;">
+                <img (click)="navigateToUser(user)" *ngIf="user.userImageURL" src={{user.userImageURL}} class="float-left" height="50px" width="50px"
+                  alt="Profile Image" id="follow-image" style="cursor: pointer;" />
+                  <span (click)="navigateToUser(user)" style="margin-top: 15px;margin-left:15px; cursor: pointer;">{{user.userName}}</span>
+              </div>
+            </div>
+            </div>
+          </ng-template>
+          <!-- modal to display followers and following end here -->
+          <ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+          </ngx-spinner>
+          <!-- edit genres modal start -->
+          <ng-template #contentThree let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Select Genre</h4>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div>
+                <input
+                  type="checkbox"
+                  value="Trag"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Trag')"
+                />
+                &nbsp; &nbsp; Tragedy
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="Fant"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Fant')"
+                />
+                &nbsp;&nbsp; Fantasy
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="Adv"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Adv')"
+                />
+                &nbsp;&nbsp; Adventure
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="Scifi"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Scifi')"
+                />
+                &nbsp;&nbsp; Science fiction
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="Mytho"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Mytho')"
+                />
+                &nbsp;&nbsp; Mythology
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="Myst"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Myst')"
+                />
+                &nbsp;&nbsp; Mystery
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="Drama"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Drama')"
+                />
+                &nbsp;&nbsp; Drama
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="Rom"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Rom')"
+                />
+                &nbsp;&nbsp; Romance
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="Act"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Act')"
+                />
+                &nbsp;&nbsp; Action
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="Sat"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Sat')"
+                />
+                &nbsp;&nbsp; Satire
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="Hor"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Hor')"
+                />
+                &nbsp;&nbsp; Horror
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="Tragcom"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Tragcom')"
+                />
+                &nbsp;&nbsp; Tragic comedy
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="YA"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('YA')"
+                />
+                &nbsp;&nbsp; Young Adult
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="Dyst"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Dyst')"
+                />
+                &nbsp;&nbsp; Dystopia
+              </div>
+              <div>
+                <input
+                  type="checkbox"
+                  value="Thril"
+                  (change)="selectgenre($event)"
+                  (checked)="(checked)"
+                  [checked]="this.promptGenres.includes('Thril')"
+                />
+                &nbsp;&nbsp; Thriller
+              </div>
+            </div>
+            <div class="modal-footer">
+              <li style="color:blue; margin-right: 30px; " *ngFor="let updatedGenre of promptGenres" >{{updatedGenre}}  </li>
+              <!-- <button
+                *ngIf="checkNeedForUpdate(tempPromptGenres, promptGenres)"
+                type="button"
+                class="btn btn-outline-primary"
+                (click)="updateGenres()"
+              > -->
+              <button
+                type="button"
+                class="btn btn-outline-primary"
+                (click)="updateGenres()"
+              >
+                Update!
+              </button>
+            </div>
+          </ng-template>
+          <!--edit genres modal end -->
+
+
+          <!-- prompt card start here -->
+          
+          <div *ngIf="buttonType == 'prompts'">
+            <div class="card" style="background-color: #bdc5f8; margin-bottom: 20px !important" *ngFor="let prompt of promptList">
+              <div class="card innerCard" style="padding: 20px;">
+                <div class="row no-gutters">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="display: flexbox;">
+                    <p style="color: #3f51b5; font-size: 12px; float: left;"> {{ -1 * prompt.time.time | date: "dd MMM yyyy" }} </p>
+                    <img [src]="this.authDetails.userSet.bookmarks && this.authDetails.userSet.bookmarks.hasOwnProperty(prompt.promptID) ? 'assets/images/bookmarked.png' : 'assets/images/btn_save.png' " class="rounded float-right" alt="Bookmark prompt" (click)="bookmarkPrompt(prompt)" />
+                  </div>
+                </div>
+                <div class="row no-gutters">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card-body">
+                      <p class="text-justify"> {{ prompt.userPrompt }} </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row no-gutters">
+                  <div style="width: 25%;">
+                    <img [src]="prompt.likes && prompt.likes.hasOwnProperty(this.authDetails.UUID) ? 'assets/images/liked.png' : 'assets/images/icn_favorite.png' " style="cursor: pointer;" class="rounded float-left"  alt="..." height="40px" width="35px" (click)="promptLikeDislike(prompt)" />
+                    <p style="margin: 5px 0px 0px 38px; color: #3f51b5;">{{prompt.likesCount ? prompt.likesCount : 0}} </p>
+                  </div>
+                  <div style="width: 50%; text-align: center;">
+                    <a routerLink="/write-story" [queryParams]="{ id: prompt.promptID }" style="text-align: center; color: #3f51b5 !important;">Write Story</a>
+                  </div>
+                  <div style="width: 25%;">
+                    <img src="assets/images/share.png" id="share" class="rounded float-right" alt="Share this prompt" (click)="sharePrompt(prompt, contentFour)"
+                    style="padding: 3%; margin-right: 0%; margin-top: -3%; cursor: pointer;" />
+                  </div>
+                </div>
+              </div>
+             
+              <ng-template #contentFour let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Share this prompt</h4>
+                </div>
+                <div class="modal-body">
+                  <a href="{{facebookLink}}" target="_blank" class="share-btn facebook-btn" style="color: #3b5998 !important;">
+                    <i class="fab fa-facebook"></i>
+                  </a>
+                  <a href="{{whatsappLink}}" target="_blank" class="share-btn whatsapp-btn" style="color: #128c7e !important;">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                  <a href="{{twitterLink}}" target="_blank" class="share-btn twitter-btn" style="color: #1da1f2 !important;">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a href="{{linkedinLink}}" target="_blank" class="share-btn linkedin-btn" style="color: #0077b5 !important;">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                  <a class="share-btn copy-btn" style="color: darkblue !important;cursor: pointer;">
+                    <i class="far fa-copy" (click)="copyPromptLink()"></i><span style="margin-left: 15px;font-size: 12px;font-style: italic;color: darkgreen;">{{linkCopied}}</span>
+                  </a>
+                </div>
+              </ng-template>
+              <div class="row no-gutters" style="padding: 5px;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                  <a style="color: black !important; text-transform: capitalize; cursor: pointer;" data-toggle="modal" (click)="openGenres(contentTwo,prompt.genre,prompt.promptID,prompt.userID)" >Genres</a>                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- prompt card end here -->
+
+          <!-- Stories card start here -->
+          <div *ngIf="buttonType == 'stories' && storiesList.length">
+            <ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+            </ngx-spinner>
+            <div class="card" style="background-color: #bdc5f8; margin-bottom: 25px;" *ngFor="let story of storiesList">
+              <p style="margin:15px;">{{story.promptSet !== undefined ? story.promptSet.userPrompt : 'Loading'}}</p>
+              <div class="card innerCard">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  
+                  <a routerLink="/user-profile" [queryParams]="{ id: story.userID }" style="cursor: pointer;">
+                    <img src="{{story.userImageURL}}" alt="" height="60px" width="60px" style="border-radius: 50%; margin-top:18px;" />
+                    &nbsp;
+                    <span style="color: #3f51b5; font-weight: bold;">{{story.userName}}</span>
+                    &nbsp;
+                    <p style="margin-left:74px; margin-top:-31px; color: #3f51b5; font-size: 14px">
+                      {{-1 * story.time.time | date: "dd MMM yyyy"}}
+                    </p>
+                  </a>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="card-body">
+                      <!-- <p class="text-justify"> {{story.stSnip}} </p> -->
+                      <div style="text-align: center;">
+                        <input type="checkbox" class="read-more-state" id="post-1" />
+                        <br />
+                        <label for="post-1" style="text-align:justify !important;"
+                          class="read-more-wrap read-more-trigger">
+                          {{story !== undefined ? story.stSnip: ""}}
+                          <span class="read-more-target">{{story.completeStory}}</span></label>
+                        <br />
+                        <label *ngIf="story.completeStory && story.completeStory!==story.completeStory.substr(0, 180)"
+                          for="post-1" class="read-more-trigger read-more-button"></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                    <img *ngIf="!(story.likes && story.likes.hasOwnProperty(this.authDetails.UUID))" src="assets/images/icn_favorite.png" class="rounded float-left" alt="..."
+                      style="height: 40px; width: 35px; margin-left:16px; margin-top: -8px;" (click)="storyLikeDislike(story)" (click)="storyLikeDislike(story)" />
+                      <img *ngIf="(story.likes && story.likes.hasOwnProperty(this.authDetails.UUID))" src="assets/images/liked.png" class="rounded float-left" alt="..."
+                      style="height: 40px; width: 35px; margin-left: 16px; margin-top: -8px;" (click)="storyLikeDislike(story)" (click)="storyLikeDislike(story)" />
+                    <p style="margin-left:55px; color: #3f51b5;">{{story.likesCount}}</p>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="text-align: center; margin:1%">
+                  <a (click)="navigate(story)"
+                    style="color:#3f51b5 !important; text-transform: capitalize; cursor: pointer;">Read
+                    Complete Story></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Stories card end here -->
+
+          <!-- bookmarks card start here -->
+          <div *ngIf="buttonType == 'bookmarks'">
+          <div class="card" style="background-color: #bdc5f8; margin-bottom: 20px !important" *ngFor="let prompt of bookmarksList">
+            <div class="card innerCard" style="padding: 20px;">
+              <div class="row no-gutters">
+                <div style="width: 80%;">
+                  <a routerLink="/user-profile" [queryParams]="{ id: prompt.userID }" style="cursor: pointer;">
+                    <div style="display: flex;">
+                        <img src="{{ prompt.userImageURL }}" alt="{{ prompt.userName }}" height="60px" width="60px" style="border-radius: 50%;" />
+                        <p style="color: #3f51b5; font-size: 14px;font-weight: bold; padding: 5px;">
+                          &nbsp;
+                          <span>{{ prompt.userName }}</span>
+                          <br />
+                          &nbsp;
+                          <span style="font-weight: 400;">{{ -1 * prompt.time.time | date: "dd MMM yyyy" }}</span>
+                        </p>
+                    </div>
+                  </a>
+                </div>
+                <div style="width: 20%;">
+                  <img [src]="this.authDetails.userSet.bookmarks && this.authDetails.userSet.bookmarks.hasOwnProperty(prompt.promptID) ? 'assets/images/bookmarked.png' : 'assets/images/btn_save.png' " class="rounded float-right" alt="Bookmark prompt" (click)="bookmarkPrompt(prompt)" />
+                </div>
+              </div>
+              <div class="row no-gutters">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="card-body">
+                    <p class="text-justify"> {{ prompt.userPrompt }} </p>
+                  </div>
+                </div>
+              </div>
+              <div class="row no-gutters">
+                <div style="width: 25%;">
+                  <img [src]="prompt.likes && prompt.likes.hasOwnProperty(this.authDetails.UUID) ? 'assets/images/liked.png' : 'assets/images/icn_favorite.png' " style="cursor: pointer;" class="rounded float-left"  alt="..." height="40px" width="35px" (click)="promptLikeDislike(prompt)" />
+                  <p style="margin: 5px 0px 0px 38px; color: #3f51b5;">{{prompt.likesCount ? prompt.likesCount : 0}} </p>
+                </div>
+                <div style="width: 50%; text-align: center;">
+                  <!-- <a routerLink="/write-story" style="text-align: center; color: #3f51b5 !important;">Write Story</a> -->
+                   <a routerLink="/write-story" [queryParams]="{ id: prompt.promptID }"  style="text-align: center; color: #3f51b5 !important;">Write Story</a>
+                </div>
+                <div style="width: 25%;">
+                  <img src="assets/images/share.png" id="share" class="rounded float-right" alt="Share this prompt" (click)="sharePrompt(prompt, contentFive)"
+                  style="padding: 3%; margin-right: 0%; margin-top: -3%; cursor: pointer;" />
+                </div>
+              </div>
+            </div>
+            <ng-template #contentSix let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Share this prompt</h4>
+              </div>
+              <div class="modal-body">
+                <a href="{{facebookLink}}" target="_blank" class="share-btn facebook-btn" style="color: #3b5998 !important;">
+                  <i class="fab fa-facebook"></i>
+                </a>
+                <a href="{{whatsappLink}}" target="_blank" class="share-btn whatsapp-btn" style="color: #128c7e !important;">
+                  <i class="fab fa-whatsapp"></i>
+                </a>
+               
+                <a href="{{twitterLink}}" target="_blank" class="share-btn twitter-btn" style="color: #1da1f2 !important;">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="{{linkedinLink}}" target="_blank" class="share-btn linkedin-btn" style="color: #0077b5 !important;">
+                  <i class="fab fa-linkedin"></i>
+                </a>
+                <a class="share-btn copy-btn" style="color: darkblue !important;cursor: pointer;">
+                  <i class="far fa-copy" (click)="copyPromptLink()"></i><span style="margin-left: 15px;font-size: 12px;font-style: italic;color: darkgreen;">{{linkCopied}}</span>
+                </a>
+              </div>
+            </ng-template>
+            <div class="row no-gutters" style="padding: 5px;">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <a style="color: black !important; text-transform: capitalize; cursor: pointer;" data-toggle="modal" (click)="openGenres(contentTwo,prompt.genre,prompt.promptID,prompt.userID)" >Genres</a>              </div>
+            </div>
+            <ng-template #contentFive let-modal>
+              <div class="modal-header">
+                <h4 class="modal-title" id="modal-basic-title">Share this prompt</h4>
+              </div>
+              <div class="modal-body">
+                <a href="{{facebookLink}}" target="_blank" class="share-btn facebook-btn" style="color: #3b5998 !important;">
+                  <i class="fab fa-facebook"></i>
+                </a>
+                <a href="{{whatsappLink}}" target="_blank" class="share-btn whatsapp-btn" style="color: #128c7e !important;">
+                  <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="{{twitterLink}}" target="_blank" class="share-btn twitter-btn" style="color: #1da1f2 !important;">
+                  <i class="fab fa-twitter"></i>
+                </a>
+                <a href="{{linkedinLink}}" target="_blank" class="share-btn linkedin-btn" style="color: #0077b5 !important;">
+                  <i class="fab fa-linkedin"></i>
+                </a>
+                <a class="share-btn copy-btn" style="color: darkblue !important;cursor: pointer;">
+                  <i class="far fa-copy" (click)="copyPromptLink()"></i><span style="margin-left: 15px;font-size: 12px;font-style: italic;color: darkgreen;">{{linkCopied}}</span>
+                </a>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+          <!-- bookmarks card end here -->
+
+
+          <!-- likes card start here -->
+          <div *ngIf="buttonType == 'likes'">
+            <div class="card" style="background-color: #bdc5f8; margin-bottom: 25px !important"
+              *ngFor="let prompt of likesList">
+              <div class="card innerCard">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div id="float">
+                    <img *ngIf="!(this.authDetails.userSet.bookmarks && this.authDetails.userSet.bookmarks.hasOwnProperty(prompt.promptID))" src="assets/images/btn_save.png" class="rounded float-right" alt="..."
+                    style="margin-top: 30px" (click)="bookmarkPrompt(prompt)" />
+                    <img
+                      *ngIf="(this.authDetails.userSet.bookmarks && this.authDetails.userSet.bookmarks.hasOwnProperty(prompt.promptID))"
+                      src="assets/images/bookmarked.png"
+                      class="rounded float-right"
+                      alt="..."
+                      style="margin-top: 40px;margin-right: 8px;"
+                      (click)="bookmarkPrompt(prompt)"
+                    />
+                  </div>
+                  <br />
+                  <div class="row">
+                    <div class="promptimage" style="max-width:60px; max-height:60px;">
+                      <a routerLink="/user-profile" [queryParams]="{ id: prompt.userID }" style="cursor: pointer;">
+                        <img src="{{ prompt.userImageURL }}" alt="{{ prompt.userName }}" height="100%" width="100%"
+                        style="border-radius: 50%;margin-top:4px;" />
+                      </a>
+                    </div>
+                    <div class="promptimage1" id="promptimagemobile"
+                      style="max-width:60px; max-height:60px; display: none;">
+                      <a routerLink="/user-profile" [queryParams]="{ id: prompt.userID }" style="cursor: pointer;">
+                        <img src="{{ prompt.userImageURL }}" alt="{{ prompt.userName }}" height="100%" width="100%"
+                        style="border-radius: 50%;margin-top:0px;" />
+                      </a>
+                    </div>
+                    &nbsp;
+                    <div class="user">
+                      <a routerLink="/user-profile" [queryParams]="{ id: prompt.userID }" style="cursor: pointer;">
+                        <p style="color: #3f51b5; font-size: 14px; margin-left: 5px; margin-top: 12px !important;font-weight: bold;">{{ prompt.userName }}</p>
+                      </a>
+                      &nbsp;
+                      <p style="
+                      margin-left: 8px;
+                      margin-top: -41px;
+                      color: #3f51b5;
+                      font-size: 14px;
+                      text-transform: uppercase;
+                    ">
+                        {{ -1 * prompt.time.time | date: "dd MMM yyyy" }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <div class="card-body">
+                        <p class="text-justify">
+                          {{ prompt.userPrompt }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row no-gutters">
+                    <div style="width: 25%;">
+                      <img [src]="prompt.likes && prompt.likes.hasOwnProperty(this.authDetails.UUID) ? 'assets/images/liked.png' : 'assets/images/icn_favorite.png' " style="cursor: pointer;" class="rounded float-left"  alt="..." height="40px" width="35px" (click)="promptLikeDislike(prompt)" />
+                      <p style="margin: 5px 0px 0px 38px; color: #3f51b5;">{{prompt.likesCount ? prompt.likesCount : 0}} </p>
+                    </div>
+                    <div style="width: 50%; text-align: center;">
+                      <a routerLink="/write-story"[queryParams]="{ id: prompt.promptID }" style="text-align: center; color: #3f51b5 !important;">Write Story</a>
+                    </div>
+                    <div style="width: 25%;">
+                      <img src="assets/images/share.png" id="share" class="rounded float-right" alt="Share this prompt" (click)="sharePrompt(prompt, contentSix)" 
+                      style="padding: 3%; margin-right: 0%; margin-top: -3%; cursor: pointer;" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-template #contentFive let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Share this prompt</h4>
+                </div>
+                <div class="modal-body">
+                  <a href="{{facebookLink}}" target="_blank" class="share-btn facebook-btn" style="color: #3b5998 !important;">
+                    <i class="fab fa-facebook"></i>
+                  </a>
+                  <a href="{{whatsappLink}}" target="_blank" class="share-btn whatsapp-btn" style="color: #128c7e !important;">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                 
+                  <a href="{{twitterLink}}" target="_blank" class="share-btn twitter-btn" style="color: #1da1f2 !important;">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a href="{{linkedinLink}}" target="_blank" class="share-btn linkedin-btn" style="color: #0077b5 !important;">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                  <a class="share-btn copy-btn" style="color: darkblue !important;cursor: pointer;">
+                    <i class="far fa-copy" (click)="copyPromptLink()"></i><span style="margin-left: 15px;font-size: 12px;font-style: italic;color: darkgreen;">{{linkCopied}}</span>
+                  </a>
+                </div>
+              </ng-template>
+              <div class="row no-gutters" style="padding: 5px;">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                  <a style="color: black !important; text-transform: capitalize; cursor: pointer;" data-toggle="modal" (click)="openGenres(contentTwo,prompt.genre,prompt.promptID,prompt.userID)" >Genres</a>                </div>
+              </div>
+              <ng-template #contentSix let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Share this prompt</h4>
+                </div>
+                <div class="modal-body">
+                  <a href="{{facebookLink}}" target="_blank" class="share-btn facebook-btn" style="color: #3b5998 !important;">
+                    <i class="fab fa-facebook"></i>
+                  </a>
+                  <a href="{{whatsappLink}}" target="_blank" class="share-btn whatsapp-btn" style="color: #128c7e !important;">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                  <a href="{{twitterLink}}" target="_blank" class="share-btn twitter-btn" style="color: #1da1f2 !important;">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                  <a href="{{linkedinLink}}" target="_blank" class="share-btn linkedin-btn" style="color: #0077b5 !important;">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                  <a class="share-btn copy-btn" style="color: darkblue !important;cursor: pointer;">
+                    <i class="far fa-copy" (click)="copyPromptLink()"></i><span style="margin-left: 15px;font-size: 12px;font-style: italic;color: darkgreen;">{{linkCopied}}</span>
+                  </a>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+          <!-- likes card end here -->
+
+          <div *ngIf="buttonType == 'prompts' && userDetails && userDetails.userPrompts == undefined">
+            <div class="card text-center">
+              <div class="card-body">
+                <img src="/assets\images\logo.png" class="rounded float-left" height="40px" /><br /><br /><br /><br />
+                <p class="card-text-center">No prompts submitted(yet)! ;).</p>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="buttonType == 'stories'  && userDetails.stories == undefined">
+            <div class="card text-center">
+              <div class="card-body">
+                <img src="/assets\images\logo.png" class="rounded float-left" height="40px" /><br /><br /><br /><br />
+                <p class="card-text-center">No Stories, yet. Start writing!.</p>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="buttonType == 'bookmarks'  && userDetails.bookmarks == undefined">
+            <div class="card text-center">
+              <div class="card-body">
+                <img src="/assets\images\logo.png" class="rounded float-left" height="40px" /><br /><br /><br /><br />
+                <p class="card-text-center">Bookmark your favourite prompts to see them here!</p>
+              </div>
+            </div>
+          </div>
+
+          <div *ngIf="buttonType == 'likes' && userDetails.likes == undefined">
+            <div class="card text-center">
+              <div class="card-body">
+                <img src="/assets\images\logo.png" class="rounded float-left" height="40px" /><br /><br /><br /><br />
+                <p class="card-text-center">No liked prompts here!</p>
+              </div>
+            </div>
+          </div>
+
+
+          <ng-template #content let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Change Your Name</h4>
+              <button
+                type="button"
+                class="close"
+                aria-label="Close"
+                (click)="modal.dismiss('Cross click')"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div style="text-align: center;">
+                <input [(ngModel)]="userDetails.userName" autocomplete="off" type="text" name="name" id="name" class="form-control" placeholder="Please enter your name" value="{{userDetails.userName}}" />
+                <button
+                  type="button"
+                  class="btn btn-outline-primary form-control"
+                  style="background-color: #3f51b5; color: white; width: 30%;"
+                  (click)="changeName()"
+                >
+                  Submit
+                </button>
+                <ngx-spinner bdColor="rgba(51,51,51,0.8  )" size="medium" color="#fff" type="ball-scale-multiple">
+                </ngx-spinner>
+              </div>
+            </div>
+          </ng-template>
+
+
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
